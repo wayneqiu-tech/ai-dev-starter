@@ -5,13 +5,12 @@
 > It does not judge your business, architecture, security, or performance.
 > It only ensures that AI works by the rules, releases can be rolled back, and records are traceable.
 
-You only need to give instructions. The AI opens the draft, saves checkpoints, tags versions, and writes the release record. You review the evidence and click merge or publish.
 
-**It covers:** task size, version numbers, release notes, rollback, branch and junk cleanup.
-**It does not cover:** business rules, architecture design, security audits, performance tuning, or compliance.
+> New here? click here [START_HERE.zh.md](START_HERE.zh.md).
+
 
 > Public beta 0.9.2 · not a formal standard yet · [简体中文](README.zh.md)
-> New here? Read [START_HERE.zh.md](START_HERE.zh.md).
+
 
 Built from **47 real engineering failures**, distilled into **30 patterns**, templates,
 scripts, and a runnable example. Tool-agnostic: Cursor, Claude Code, Copilot, Codex,
