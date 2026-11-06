@@ -5,7 +5,18 @@ All notable changes to **AI Dev Standard** are documented here.
 The project uses SemVer for its own releases: `MAJOR.MINOR.PATCH`.
 The version lives in `VERSION`; tags are `vX.Y.Z`.
 
-## [Unreleased]
+## [0.9.3] — 2026-11-07 (public beta)
+
+### Added
+
+- English beginner layer: `START_HERE.md`, `PROMPTS.md`, and
+  `TROUBLESHOOTING.md`. The English README now links to these instead of the
+  Chinese-only files.
+- English DSH skill template (`templates/dsh-skill/SKILL.en.md`);
+  `init-project.sh --lang en` installs it as
+  `.dsh/skills/ai-dev-standard/SKILL.md`.
+- `init-project.sh` now copies both English and Chinese beginner docs, so an
+  English generated project links to English files.
 
 ### Changed
 

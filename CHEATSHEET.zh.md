@@ -1,6 +1,6 @@
 # AI Dev Standard · 一页纸
 
-> 打印出来，或者钉在编辑器旁边。版本 0.9.2（公测） · [English](CHEATSHEET.md) · [完整基线](README.zh.md)
+> 打印出来，或者钉在编辑器旁边。版本 0.9.3（公测） · [English](CHEATSHEET.md) · [完整基线](README.zh.md)
 >
 > **第一次用？** 先看 [START_HERE.zh.md](START_HERE.zh.md) —— 你只需要会说三句话。
 

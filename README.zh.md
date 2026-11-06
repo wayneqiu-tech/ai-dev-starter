@@ -5,9 +5,9 @@
 > 它不判断业务、架构、安全、性能；
 > 它只保证 AI 按规矩开发、发布可回滚、记录可查。
 
-> 第一次来？点这里 [START_HERE.zh.md](START_HERE.zh.md)。
+> 第一次来？点这里 [START_HERE.zh.md](START_HERE.zh.md) · [English](START_HERE.md)。
 
-> 公测 0.9.2 · 还不是正式标准 · [English](README.md)
+> 公测 0.9.3 · 还不是正式标准 · [English](README.md)
 
 
 来自 **47 次真实工程事故**，提炼成 **30 个踩坑模式** + 模板/脚本/示例。不绑定工具：Cursor、Claude Code、Copilot、Codex、普通聊天窗口都能用。
@@ -39,7 +39,7 @@
 
 ## 状态（公测）
 
-- **0.9.2 公测**：可以马上用，但要有“还会变”的心理准备。
+- **0.9.3 公测**：可以马上用，但要有“还会变”的心理准备。
 - **可以放心用的**：模板、预设、`preflight.sh`、`cleanup.sh`、`init-project.sh`。
 - **1.0 前可能变的**：规则名、层级边界、措辞、默认脚本。
 - **1.0 的条件**：10 个小白走完 30 分钟路径、关掉 5 个真实摩擦 issue、3 个项目采用，再加上正式的 `SPEC.md` 和一致性检查。
@@ -72,6 +72,7 @@
 - **[START_HERE.zh.md](START_HERE.zh.md)** —— 先复制一段话，不用懂 Git
 - **[PROMPTS.zh.md](PROMPTS.zh.md)** —— 15 张复制即用的指令卡
 - **[TROUBLESHOOTING.zh.md](TROUBLESHOOTING.zh.md)** —— 报错、冲突、发布失败时说什么
+- **[English](START_HERE.md)** —— the same beginner path in English
 
 这条路径假设你**完全不懂 Git**；下面的内容才是给开发者的。
 
@@ -202,11 +203,11 @@ bash scripts/check-release-sync.sh
 ```
 .
 ├─ README.md / README.zh.md       # 本文件
-├─ START_HERE.zh.md               # 小白入口：先复制一段话，不用懂 Git
-├─ PROMPTS.zh.md                  # 复制即用的指令卡
-├─ TROUBLESHOOTING.zh.md          # 出问题说什么
+├─ START_HERE.md / .zh.md         # 小白入口：先复制一段话，不用懂 Git
+├─ PROMPTS.md / .zh.md            # 复制即用的指令卡
+├─ TROUBLESHOOTING.md / .zh.md    # 出问题说什么
 ├─ CHEATSHEET.md / .zh.md         # 一页纸，可打印
-├─ VERSION                        # 基线自身的版本（0.9.2）
+├─ VERSION                        # 基线自身的版本（0.9.3）
 ├─ standard.conf                 # 本仓库的 preflight 配置
 ├─ docs/
 │  ├─ en/  zh/                    # 7 篇，中英双语

@@ -1,6 +1,6 @@
 # Governance
 
-> Status: **0.9.2 public beta**. This is a small open-source project, not a
+> Status: **0.9.3 public beta**. This is a small open-source project, not a
 > formal standards body. It does not certify anyone.
 
 ## Maintainer
@@ -57,7 +57,7 @@ If these are not met, the project stays on `0.x`. That is a feature, not a failu
 
 ## 中文摘要
 
-- 现在 **0.9.2 公测**，不是正式标准，也不做认证。
+- 现在 **0.9.3 公测**，不是正式标准，也不做认证。
 - 当前由仓库所有者维护；3 个外部贡献者合并后再加第二维护者。
 - 改规则：先开 issue，7 天评论期；破坏性变更 14 天 + 迁移说明。
 - 版本用 SemVer；0.x 允许变；每次发布有 tag、发布单、CHANGELOG。

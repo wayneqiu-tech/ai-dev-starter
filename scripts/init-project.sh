@@ -130,6 +130,9 @@ copy_if_absent "$SRC/CHEATSHEET.zh.md" "$TARGET/docs/standards/CHEATSHEET.zh.md"
 copy_if_absent "$SRC/START_HERE.zh.md" "$TARGET/docs/standards/START_HERE.zh.md"
 copy_if_absent "$SRC/PROMPTS.zh.md" "$TARGET/docs/standards/PROMPTS.zh.md"
 copy_if_absent "$SRC/TROUBLESHOOTING.zh.md" "$TARGET/docs/standards/TROUBLESHOOTING.zh.md"
+copy_if_absent "$SRC/START_HERE.md" "$TARGET/docs/standards/START_HERE.md"
+copy_if_absent "$SRC/PROMPTS.md" "$TARGET/docs/standards/PROMPTS.md"
+copy_if_absent "$SRC/TROUBLESHOOTING.md" "$TARGET/docs/standards/TROUBLESHOOTING.md"
 copy_if_absent "$SRC/LICENSE" "$TARGET/docs/standards/LICENSE"
 copy_if_absent "$SRC/LICENSE-docs" "$TARGET/docs/standards/LICENSE-docs"
 copy_if_absent "$SRC/CONTRIBUTING.md" "$TARGET/docs/standards/CONTRIBUTING.md"
@@ -153,7 +156,11 @@ else
   copy_if_absent "$SRC/templates/pull_request.md" "$TARGET/.github/pull_request_template.md"
 fi
 
-copy_if_absent "$SRC/templates/dsh-skill/SKILL.md" "$TARGET/.dsh/skills/ai-dev-standard/SKILL.md"
+if [ "$LANG_CODE" = "zh" ]; then
+  copy_if_absent "$SRC/templates/dsh-skill/SKILL.md" "$TARGET/.dsh/skills/ai-dev-standard/SKILL.md"
+else
+  copy_if_absent "$SRC/templates/dsh-skill/SKILL.en.md" "$TARGET/.dsh/skills/ai-dev-standard/SKILL.md"
+fi
 copy_if_absent "$SRC/scripts/check-release-sync.sh" "$TARGET/scripts/check-release-sync.sh"
 chmod 755 "$TARGET/scripts/check-release-sync.sh" 2>/dev/null || true
 copy_if_absent "$SRC/templates/gitignore.txt" "$TARGET/.gitignore"

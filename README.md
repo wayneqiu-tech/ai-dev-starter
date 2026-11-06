@@ -6,10 +6,10 @@
 > It only ensures that AI works by the rules, releases can be rolled back, and records are traceable.
 
 
-> New here? click here [START_HERE.zh.md](START_HERE.zh.md).
+> New here? Start here: [START_HERE.md](START_HERE.md) · [简体中文](START_HERE.zh.md).
 
 
-> Public beta 0.9.2 · not a formal standard yet · [简体中文](README.zh.md)
+> Public beta 0.9.3 · not a formal standard yet · [简体中文](README.zh.md)
 
 
 Built from **47 real engineering failures**, distilled into **30 patterns**, templates,
@@ -43,7 +43,7 @@ Most teams don't fail because of one big mistake. They fail because of loops:
 
 ## Status (public beta)
 
-- **0.9.2 public beta** — adopt it, but expect changes.
+- **0.9.3 public beta** — adopt it, but expect changes.
 - **Stable enough to use:** templates, presets, `preflight.sh`, `cleanup.sh`, `init-project.sh`.
 - **May change before 1.0:** rule names, level boundaries, wording, default scripts.
 - **1.0 criteria:** 10 beginners complete the 30-minute path, 5 real friction issues closed,
@@ -70,13 +70,14 @@ Most teams don't fail because of one big mistake. They fail because of loops:
 
 You do **not** need to know Git internals. You need 30 minutes and a project.
 
-## New to this? (中文小白入口)
+## New to this?
 
 If you are not a developer and only know how to give instructions:
 
-- **[START_HERE.zh.md](START_HERE.zh.md)** — copy one prompt; no Git knowledge
-- **[PROMPTS.zh.md](PROMPTS.zh.md)** — copy-paste instructions for common tasks
-- **[TROUBLESHOOTING.zh.md](TROUBLESHOOTING.zh.md)** — what to say when something breaks
+- **[START_HERE.md](START_HERE.md)** — copy one prompt; no Git knowledge
+- **[PROMPTS.md](PROMPTS.md)** — copy-paste instructions for common tasks
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** — what to say when something breaks
+- **[中文版](START_HERE.zh.md)** — the same beginner path in Chinese
 
 That path assumes **zero Git knowledge**. The rest of this README is the developer path.
 
@@ -206,11 +207,11 @@ Presets live in [`presets/`](presets/). Start with `standard.conf`; move up only
 ```
 .
 ├─ README.md / README.zh.md       # this file
-├─ START_HERE.zh.md               # beginner entry: copy one prompt, no Git
-├─ PROMPTS.zh.md                  # copy-paste instructions for common tasks
-├─ TROUBLESHOOTING.zh.md          # what to say when something breaks
+├─ START_HERE.md / .zh.md         # beginner entry: copy one prompt, no Git
+├─ PROMPTS.md / .zh.md            # copy-paste instructions for common tasks
+├─ TROUBLESHOOTING.md / .zh.md    # what to say when something breaks
 ├─ CHEATSHEET.md / .zh.md         # one-page printable summary
-├─ VERSION                        # the baseline's own version (0.9.2)
+├─ VERSION                        # the baseline's own version (0.9.3)
 ├─ standard.conf                 # repo config for preflight
 ├─ docs/
 │  ├─ en/  zh/                    # 7 guides, bilingual
