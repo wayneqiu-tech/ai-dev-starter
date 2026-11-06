@@ -1,0 +1,86 @@
+# ===== Dependencies / caches =====
+node_modules/
+.pnpm-store/
+.yarn/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ===== Build output =====
+dist/
+build/
+target/
+out/
+.next/
+.nuxt/
+coverage/
+*.tsbuildinfo
+
+# ===== Env and secrets =====
+.env
+.env.*
+!.env.example
+!**/*.example
+!**/*.sample
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+.npmrc
+
+# ===== Logs / temp =====
+*.log
+logs/
+*.pid
+*.tmp
+*.swp
+.cache/
+.parcel-cache/
+
+# ===== Test / coverage =====
+test-results/
+playwright-report/
+.nyc_output/
+coverage/
+
+# ===== Editors / OS =====
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+
+# ===== Large files / installers (use Release or LFS) =====
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+*.dmg
+*.exe
+*.msi
+*.apk
+*.ipa
+
+# ===== Databases / local data =====
+*.sqlite
+*.sqlite3
+*.db
+data/
+uploads/
+
+# ===== Local overrides (template may be committed; real values may not) =====
+.env.local
+.env.*.local
+config/*.local.*
+
+# ===== Cleanup recycle bin =====
+.trash/

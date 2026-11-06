@@ -1,0 +1,12 @@
+{
+  "name": "hello-standard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A runnable example for AI Dev Standard (no dependencies)",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "build": "node scripts/build.mjs"
+  }
+}

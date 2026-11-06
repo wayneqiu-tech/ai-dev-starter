@@ -1,0 +1,42 @@
+# Changelog
+
+All notable changes to **AI Dev Standard** are documented here.
+
+The project uses SemVer for its own releases: `MAJOR.MINOR.PATCH`.
+The version lives in `VERSION`; tags are `vX.Y.Z`.
+
+## [0.9.0] — 2026-11-06 (public beta)
+
+First public beta. This is an **engineering baseline**, not a formal standard yet.
+The 1.0 line will follow after real-world feedback (see `GOVERNANCE.md`).
+
+### Added
+
+- 7 guides (bilingual): why, AI workflow, Git/version/release, code conventions,
+  security/repo/CI, adoption, monitoring/auto-recovery/cleanup.
+- 30 pitfall patterns distilled from 47 real incidents.
+- Beginner layer: `START_HERE.zh.md` (three sentences, no Git), `PROMPTS.zh.md`
+  (copy-paste instructions), `TROUBLESHOOTING.zh.md` (what to say when broken).
+- Templates: `AGENTS.md` (EN/ZH), `CLAUDE.md`, Cursor rule, commit message,
+  pull request, release note, `.gitignore`, CI workflow, healthcheck, systemd,
+  Docker healthcheck.
+- Presets: minimal, standard, strict.
+- `SECURITY.md` and `GOVERNANCE.md` for the public beta (reporting, decision process, 1.0 criteria).
+- `preflight.sh` (read-only self-check), `cleanup.sh` (7-day trash + weekly
+  schedule), and `init-project.sh` (one-command bootstrap: handbook, AGENTS.md,
+  README, VERSION, git init/commit/tag, stack-agnostic CI, commit-msg hook,
+  baseline release note).
+- A runnable example in `examples/hello-standard/`.
+
+### Notes
+
+- Default version scheme: dated `RYYYYMMDD.NN`; SemVer is supported.
+- Default branch model: trunk + short-lived branches.
+- Documentation: CC BY 4.0. Code and templates: MIT.
+
+## How to propose a change
+
+1. Open an issue using the "Rule proposal" or "Pitfall report" template.
+2. One rule per PR.
+3. Update both languages if the meaning changes.
+4. Add a changelog entry under `Unreleased`.

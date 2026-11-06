@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  standard:
+    name: Standard self-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Shell syntax
+        run: bash -n scripts/preflight.sh scripts/init-project.sh scripts/cleanup.sh templates/healthcheck.sh
+      - name: Preflight (CI mode)
+        run: bash scripts/preflight.sh --ci
+
+  example:
+    name: Runnable example
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: examples/hello-standard
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm test
+      - run: npm run build

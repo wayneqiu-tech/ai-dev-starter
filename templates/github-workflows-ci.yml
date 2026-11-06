@@ -1,0 +1,26 @@
+# Generic CI for a Node project using AI Dev Standard.
+# Adapt the install/test/build commands to your stack.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # preflight needs tag history
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint --if-present
+      - run: npm test --if-present
+      - run: npm run build --if-present
+      - name: Standard self-check
+        run: bash docs/standards/scripts/preflight.sh --ci

@@ -1,0 +1,21 @@
+# <type>(<scope>): <subject>
+#
+# Rules (docs/standards/03-git-version-release.md §2):
+#   type    : feat | fix | docs | refactor | perf | test | build | ci | chore | revert
+#   scope   : optional module, e.g. login / api / deploy
+#   subject : <= 50 chars, imperative, no trailing period
+#   body    : why this change, what was broken, trade-offs (not a file list)
+#   footer  : Refs #123 / BREAKING CHANGE: ... / Co-authored-by: ...
+#
+# Example:
+#   fix(deploy): stop cleanup when verification fails
+#
+#   Verification failures used to print a warning and continue, so cleanup
+#   could delete the artifact needed for rollback. Now it exits non-zero.
+#
+#   Refs #42
+#
+# Checklist:
+#   - one commit, one concern; revertible on its own
+#   - AI-assisted? add Co-authored-by
+#   - no secrets, real IPs, or absolute paths in the message

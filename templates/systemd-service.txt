@@ -1,0 +1,29 @@
+# Example systemd unit for a small service.
+# Copy to /etc/systemd/system/<app>.service, then:
+#   systemctl daemon-reload && systemctl enable --now <app>
+#
+# Restart=always handles crashes. It does NOT detect a hung process or a bad
+# release; pair it with healthcheck.sh and an external uptime monitor.
+
+[Unit]
+Description=<app>
+After=network.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=<deploy-user>
+WorkingDirectory=/opt/<app>/current
+EnvironmentFile=/opt/<app>/.env
+ExecStart=/usr/bin/node /opt/<app>/current/server.js
+Restart=always
+RestartSec=5
+TimeoutStopSec=20
+
+# Safety: do not run as root; keep secrets in a 0600 env file.
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,24 @@
+# Stack-agnostic CI: checks the standard itself.
+# Add your own install/test/build steps below the preflight step.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  standard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Standard self-check
+        run: bash docs/standards/scripts/preflight.sh --ci
+      # - name: Install
+      #   run: <install command>
+      # - name: Test
+      #   run: <test command>
+      # - name: Build
+      #   run: <build command>

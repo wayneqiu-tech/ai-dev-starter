@@ -1,0 +1,18 @@
+---
+description: AI Dev Standard — read AGENTS.md before any change
+alwaysApply: true
+---
+
+# AI Dev Standard (Cursor adapter)
+
+`AGENTS.md` is the single source of project rules. Read it first.
+
+Before editing:
+
+1. Read `AGENTS.md` and the files named in the task.
+2. Give a plan of at most 3 steps.
+3. Change only the requested scope; do not refactor "while here".
+4. Never touch `.env`, secrets, production config, or tests to make checks pass.
+5. Self-prove at the end: files, why, commands + output, what you did not do.
+
+If a rule in this file conflicts with `AGENTS.md`, `AGENTS.md` wins.
