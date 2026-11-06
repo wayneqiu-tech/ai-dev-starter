@@ -1,18 +1,25 @@
 # AI Dev Standard
 
-> **A beginner-first engineering baseline for people who build software with AI.**
-> **Public beta · 0.9.0** · Read in **[简体中文](README.zh.md)**
->
-> **Not a formal standard yet.** It is an opinionated starter kit: rules, templates, scripts, and a beginner path that you can adopt today. The 1.0 line will follow after real-world feedback.
->
-> **第一次来 / New to Git?** 中文小白入口：[START_HERE.zh.md](START_HERE.zh.md) — 只需要会说三句话，不需要懂 Git。
+> **Let AI build your project — without letting it turn the project into a mess.**
+> **No random rewrites. No lost versions. No release you can't undo. No junk pile-up.**
 
-Most "AI coding rules" are either too abstract ("write clean code") or too heavy (a corporate process designed for 50 people). This baseline is different:
+You only need to give instructions. The AI opens the draft, saves checkpoints, tags versions, and writes the release record. You review the evidence and click merge or publish.
 
-- It comes from **47 real engineering failures** in a multi-surface production project.
-- They are distilled into **30 reusable patterns** and a set of rules you can actually run.
-- It is **tool-agnostic**: works with Cursor, Claude Code, Copilot, Codex, or a plain chat window.
-- It ships with **copy-paste templates**, **three presets**, a **preflight script**, and a **runnable example**.
+It fixes six beginner problems:
+
+- **AI changes too much to review** → one task at a time, with proof
+- **“Which version is live?”** → one version number you can check
+- **A bad release you can't undo** → keep the last 3 versions and a rollback command
+- **Secrets pushed to GitHub** → checked before commit
+- **A repo that grows into a junk pile** → weekly cleanup, with a 7-day trash
+- **“What do I even say to the AI?”** → 12 copy-paste prompt cards
+
+> Public beta 0.9.0 · not a formal standard yet · [简体中文](README.zh.md)
+> New here? Read [START_HERE.zh.md](START_HERE.zh.md).
+
+Built from **47 real engineering failures**, distilled into **30 patterns**, templates,
+scripts, and a runnable example. Tool-agnostic: Cursor, Claude Code, Copilot, Codex,
+or a plain chat window.
 
 ---
 

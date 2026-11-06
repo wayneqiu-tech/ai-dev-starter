@@ -12,13 +12,13 @@
 **GitHub About（英文，≤160 字符）**：
 
 ```
-A beginner-first engineering baseline for people building software with AI. Templates, Git/version/release rules, cleanup & monitoring. Public beta.
+Keep AI-built projects under control: no random rewrites, lost versions, or unrecoverable releases. Beginner-first templates & prompts. Public beta.
 ```
 
 **GitHub About（中文，放 README 第一段即可）**：
 
 ```
-给「用 AI 写代码的人」的小白优先工程基线：模板、Git/版本/发布规则、清理与监控。0.9 公测，不是正式标准。
+让 AI 帮你写项目，但别把项目写乱：不乱改、不丢版本、出事能退、垃圾自动清。小白优先的模板与指令卡。0.9 公测。
 ```
 
 **Topics**：
@@ -130,7 +130,7 @@ v0.9 公测：你用这套基线时，卡在哪一步？
 ### 中文（V2EX / 掘金 / 即刻）
 
 ```
-发一个给「用 AI 写代码的人」的小白优先工程基线（0.9 公测）。
+发一个帮小白「管住 AI 写出来的项目」的工具包（0.9 公测）。
 
 不是又一个提示词合集，也不是正式标准。它解决的是：
 - 版本混乱：一个 VERSION + tag + 发布单
