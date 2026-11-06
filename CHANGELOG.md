@@ -5,6 +5,14 @@ All notable changes to **AI Dev Standard** are documented here.
 The project uses SemVer for its own releases: `MAJOR.MINOR.PATCH`.
 The version lives in `VERSION`; tags are `vX.Y.Z`.
 
+## [Unreleased]
+
+### Added
+
+- DSH Skill template (`templates/dsh-skill/SKILL.md`). `init-project.sh` installs
+  it at `.dsh/skills/ai-dev-standard/SKILL.md`, so a generated project can use
+  `/ai-dev-standard` immediately (a Skill, not a Host plugin).
+
 ## [0.9.0] — 2026-11-06 (public beta)
 
 First public beta. This is an **engineering baseline**, not a formal standard yet.

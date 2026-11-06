@@ -3,6 +3,8 @@
 <One sentence: what it is, who it is for, what problem it solves.>
 
 > **第一次用 / New to this?** 中文小白入口：`docs/standards/START_HERE.zh.md` —— 你只需要会说三句话。
+>
+> **DSH:** `/ai-dev-standard 检查当前项目`
 
 ## Quick start
 

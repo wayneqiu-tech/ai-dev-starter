@@ -120,7 +120,7 @@ copy_dir_if_absent() {
 echo "AI Dev Standard → $TARGET"
 echo "  project: $NAME · lang: $LANG_CODE · version: $([ "$SEMVER" = "1" ] && echo semver || echo dated)"
 
-mkdir -p "$TARGET/docs/standards/docs" "$TARGET/docs/releases" "$TARGET/.github/workflows"
+mkdir -p "$TARGET/docs/standards/docs" "$TARGET/docs/releases" "$TARGET/.github/workflows" "$TARGET/.dsh/skills/ai-dev-standard"
 
 # --- handbook ---------------------------------------------------------------
 copy_if_absent "$SRC/README.md" "$TARGET/docs/standards/README.md"
@@ -153,6 +153,7 @@ else
   copy_if_absent "$SRC/templates/pull_request.md" "$TARGET/.github/pull_request_template.md"
 fi
 
+copy_if_absent "$SRC/templates/dsh-skill/SKILL.md" "$TARGET/.dsh/skills/ai-dev-standard/SKILL.md"
 copy_if_absent "$SRC/templates/gitignore.txt" "$TARGET/.gitignore"
 copy_if_absent "$SRC/presets/standard.conf" "$TARGET/standard.conf"
 
@@ -291,5 +292,6 @@ else
   echo "  git add -A && git commit -m \"chore: initialize project with AI Dev Standard\""
   echo "  git tag -a \"\$(cat VERSION)\" -m \"baseline \$(cat VERSION)\""
 fi
+echo "  # DSH: open this folder and type /ai-dev-standard"
 echo "  # next release: copy docs/releases/TEMPLATE.md to docs/releases/<version>.md"
 echo "  bash docs/standards/scripts/preflight.sh --release"

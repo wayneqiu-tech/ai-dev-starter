@@ -152,6 +152,28 @@ Expected: no `FAIL`. Warnings are fine to fix later (common ones: no remote, no 
 
 ---
 
+## Use it in DSH (optional)
+
+If you use DeepSeek Harness, `init-project.sh` installs a Skill at
+`.dsh/skills/ai-dev-standard/SKILL.md`.
+
+Open the project in DSH and type:
+
+```text
+/ai-dev-standard 检查当前项目
+```
+
+or:
+
+```text
+/ai-dev-standard 帮我初始化一个新项目
+```
+
+It is a **Skill, not a plugin**: no install, no Host code, no permission prompt.
+If you don't use DSH, ignore the `.dsh/` folder.
+
+---
+
 ## Three levels: pick one
 
 | Level | For | What you get | What you can skip |
@@ -179,7 +201,7 @@ Presets live in [`presets/`](presets/). Start with `standard.conf`; move up only
 │  ├─ en/  zh/                    # 7 guides, bilingual
 │  └─ releases/                   # release notes for the standard itself
 ├─ pitfalls/                      # 30 patterns distilled from 47 real failures
-├─ templates/                     # AGENTS, commit, PR, release note, CI, healthcheck, systemd, Docker
+├─ templates/                     # AGENTS, commit, PR, release note, CI, healthcheck, systemd, Docker, DSH skill
 ├─ presets/                       # minimal / standard / strict
 ├─ scripts/
 │  ├─ preflight.sh                # read-only self-check

@@ -149,6 +149,31 @@ bash docs/standards/scripts/preflight.sh
 
 ---
 
+## 在 DSH 里用（可选）
+
+如果你用 DeepSeek Harness，`init-project.sh` 会自动装一个 Skill：
+
+```
+.dsh/skills/ai-dev-standard/SKILL.md
+```
+
+在 DSH 里打开项目，输入：
+
+```text
+/ai-dev-standard 检查当前项目
+```
+
+或者：
+
+```text
+/ai-dev-standard 帮我初始化一个新项目
+```
+
+它是 **Skill，不是插件**：不用安装、不会在 Host 里跑代码、没有授权弹窗。
+不用 DSH 的话，忽略 `.dsh/` 目录即可。
+
+---
+
 ## 三档预设：先选一档
 
 | 档位 | 适合 | 你会得到 | 可以跳过 |
@@ -176,7 +201,7 @@ bash docs/standards/scripts/preflight.sh
 │  ├─ en/  zh/                    # 7 篇，中英双语
 │  └─ releases/                   # 规范自身的发布单
 ├─ pitfalls/                      # 47 次事故提炼的 30 个模式
-├─ templates/                     # AGENTS、commit、PR、发布单、CI、健康检查、systemd、Docker
+├─ templates/                     # AGENTS、commit、PR、发布单、CI、健康检查、systemd、Docker、DSH Skill
 ├─ presets/                       # minimal / standard / strict
 ├─ scripts/
 │  ├─ preflight.sh                # 只读自检
