@@ -75,7 +75,7 @@ You do **not** need to know Git internals. You need 30 minutes and a project.
 
 If you are not a developer and only know how to give instructions:
 
-- **[START_HERE.zh.md](START_HERE.zh.md)** — three sentences; no Git knowledge
+- **[START_HERE.zh.md](START_HERE.zh.md)** — copy one prompt; no Git knowledge
 - **[PROMPTS.zh.md](PROMPTS.zh.md)** — copy-paste instructions for common tasks
 - **[TROUBLESHOOTING.zh.md](TROUBLESHOOTING.zh.md)** — what to say when something breaks
 
@@ -207,7 +207,7 @@ Presets live in [`presets/`](presets/). Start with `standard.conf`; move up only
 ```
 .
 ├─ README.md / README.zh.md       # this file
-├─ START_HERE.zh.md               # beginner entry: three sentences, no Git
+├─ START_HERE.zh.md               # beginner entry: copy one prompt, no Git
 ├─ PROMPTS.zh.md                  # copy-paste instructions for common tasks
 ├─ TROUBLESHOOTING.zh.md          # what to say when something breaks
 ├─ CHEATSHEET.md / .zh.md         # one-page printable summary

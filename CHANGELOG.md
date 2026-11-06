@@ -5,6 +5,15 @@ All notable changes to **AI Dev Standard** are documented here.
 The project uses SemVer for its own releases: `MAJOR.MINOR.PATCH`.
 The version lives in `VERSION`; tags are `vX.Y.Z`.
 
+## [Unreleased]
+
+### Changed
+
+- `START_HERE.zh.md` now starts with one copy-paste prompt for the AI instead of
+  Git/terminal preparation. The rest explains what the AI should answer, how to
+  use DSH, and what a beginner should not do.
+- `PROMPTS.zh.md` gains card 0 with the same first-use prompt.
+
 ## [0.9.2] — 2026-11-07 (public beta)
 
 ### Changed

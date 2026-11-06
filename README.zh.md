@@ -72,8 +72,8 @@
 
 如果你只会下指令、不懂代码或 Git：
 
-- **[START_HERE.zh.md](START_HERE.zh.md)** —— 只需要会说三句话
-- **[PROMPTS.zh.md](PROMPTS.zh.md)** —— 12 张复制即用的指令卡
+- **[START_HERE.zh.md](START_HERE.zh.md)** —— 先复制一段话，不用懂 Git
+- **[PROMPTS.zh.md](PROMPTS.zh.md)** —— 15 张复制即用的指令卡
 - **[TROUBLESHOOTING.zh.md](TROUBLESHOOTING.zh.md)** —— 报错、冲突、发布失败时说什么
 
 这条路径假设你**完全不懂 Git**；下面的内容才是给开发者的。
@@ -205,7 +205,7 @@ bash scripts/check-release-sync.sh
 ```
 .
 ├─ README.md / README.zh.md       # 本文件
-├─ START_HERE.zh.md               # 小白入口：三句话，不用懂 Git
+├─ START_HERE.zh.md               # 小白入口：先复制一段话，不用懂 Git
 ├─ PROMPTS.zh.md                  # 复制即用的指令卡
 ├─ TROUBLESHOOTING.zh.md          # 出问题说什么
 ├─ CHEATSHEET.md / .zh.md         # 一页纸，可打印
