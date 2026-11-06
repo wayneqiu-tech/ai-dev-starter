@@ -41,7 +41,7 @@
 
 - 给**独立开发者、公民开发者、1–5 人小团队**的默认基线。
 - 一份**你和 AI 之间的合同**：先读什么、做什么、不许碰什么、怎么证明做完了。
-- 一套**可检查**的规则：版本格式、tag、发布单、密钥、大文件，都能用 `scripts/preflight.sh` 和 CI 查。
+- 一套**可检查**的规则：版本格式、tag、发布单、密钥、大文件、未推送提交、账本漂移、线上版本，都能用 `preflight.sh`、`check-release-sync.sh` 和 CI 查。
 - 一个**可以 fork、裁剪、加严**的起点。
 
 ## 状态（公测）
@@ -174,6 +174,24 @@ bash docs/standards/scripts/preflight.sh
 
 ---
 
+## 补上 preflight 看不到的三件事
+
+`preflight.sh` 是本地只读检查，它不知道发布有没有推到远程、账本和线上是否一致、HEAD 有没有 tag。所以再加一个对账：
+
+```bash
+bash scripts/check-release-sync.sh
+```
+
+它只查三样：
+
+1. `HEAD` 是否等于 `origin/<branch>`（发布不只在这台笔记本上）；
+2. 账本 / `VERSION` 是否等于线上 `/version`（账本没漂移）；
+3. `HEAD` 是否有 tag，且 tag 与账本一致（发布可复现）。
+
+`LIVE_VERSION_URL` 可选；在 `standard.conf` 或环境变量里设置。
+
+---
+
 ## 三档预设：先选一档
 
 | 档位 | 适合 | 你会得到 | 可以跳过 |
@@ -205,6 +223,7 @@ bash docs/standards/scripts/preflight.sh
 ├─ presets/                       # minimal / standard / strict
 ├─ scripts/
 │  ├─ preflight.sh                # 只读自检
+│  ├─ check-release-sync.sh       # 远程 / 账本 / 线上 / tag 对账
 │  ├─ cleanup.sh                  # 每周清理 + 7 天回收站
 │  └─ init-project.sh             # 一条命令初始化（git/提交/tag/CI/钩子）
 ├─ examples/hello-standard/       # 可运行示例（Node，无依赖）

@@ -398,7 +398,7 @@ Continuous does not mean "deploy every commit". Merge five times a day if you li
 | 3 | CI green | latest pipeline passed | fix it; "it was green last time" is not a gate |
 | 4 | Tests pass | `npm test` / `pytest` / equivalent | fix; no skipping |
 | 5 | Build passes | `npm run build` | fix |
-| 6 | Version reconciliation E1–E4 | `preflight --release` | add `VERSION`/tag/release note |
+| 6 | Version reconciliation E1–E6 | `preflight --release` + `check-release-sync.sh` | add `VERSION`/tag/release note; fix push/ledger |
 | 7 | Release note draft | `docs/releases/<V>.md` | write what/verified/rollback |
 | 8 | Rollback plan | target version + one command + data impact | no plan, no release |
 | 9 | Backup (stateful systems) | DB/upload snapshot + verification | back up first |
@@ -407,6 +407,25 @@ Continuous does not mean "deploy every commit". Merge five times a day if you li
 > Run gates in two phases: 1–5 and 7–10 before building; item 6 (including the tag) after building and tagging. Any FAIL stops the release. No "ship first, fix later".
 
 > **No tests?** At minimum you need a smoke script: build + start + health check + one core path. "I clicked it manually" is not a gate.
+
+### 4.2.1 Environment dimension: dev / CI / prod must not share one setup
+
+> If all three environments share one 3.5 GB box, the incident is usually not "bad code"; it is **no environment isolation**: CI writes the production directory, dev changes the production port, prod is used as a test machine.
+
+| Environment | Data | Directory/port | Secrets | Rule |
+|---|---|---|---|---|
+| dev | fake/local data | its own directory and port | no production secrets | change freely, never touch prod |
+| CI | ephemeral DB, destroyed after | separate directory/port | read-only, least privilege | never write prod or connect to prod DB |
+| prod | real data | fixed directory/port | server-side only | deploy from a tag; never edit code there |
+
+On one machine, at minimum:
+
+- use different directories, ports, service names, and databases for dev/CI/prod;
+- CI must not write the prod directory; prod must not run tests;
+- record the domain/port/version of all three before release; if they disagree, stop;
+- leave memory headroom for prod; check `free -m` before deploying; do not release at the OOM edge.
+
+---
 
 ### 4.3 Release steps
 

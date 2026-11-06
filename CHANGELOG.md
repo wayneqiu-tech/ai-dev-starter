@@ -12,6 +12,16 @@ The version lives in `VERSION`; tags are `vX.Y.Z`.
 - DSH Skill template (`templates/dsh-skill/SKILL.md`). `init-project.sh` installs
   it at `.dsh/skills/ai-dev-standard/SKILL.md`, so a generated project can use
   `/ai-dev-standard` immediately (a Skill, not a Host plugin).
+- `scripts/check-release-sync.sh`: checks HEAD == origin, ledger == live
+  `/version`, and HEAD is tagged. Installed to `scripts/` in new projects.
+- `preflight.sh` now checks unpushed commits, ledger drift, tag naming, commit
+  message, and commit size.
+- Environment dimension (dev / CI / prod isolation) in the release chapter.
+
+### Changed
+
+- `preflight.sh` **fails closed** when `standard.conf` is missing or still has
+  the placeholder `PROJECT_NAME="my-project"`; no more silent preset fallback.
 
 ## [0.9.0] — 2026-11-06 (public beta)
 

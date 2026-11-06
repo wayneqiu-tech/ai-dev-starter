@@ -15,14 +15,16 @@ set -uo pipefail
 
 MODE="normal"
 STRICT=0
+ALLOW_DEFAULTS=0
 
 usage() {
   cat <<'EOF'
-Usage: preflight.sh [--release] [--ci] [--strict] [--help]
+Usage: preflight.sh [--release] [--ci] [--strict] [--allow-defaults] [--help]
 
   --release  Release mode: require tag, release note, clean worktree
   --ci       CI mode: skip worktree/branch checks (CI is often detached HEAD)
   --strict   Treat WARN as FAIL
+  --allow-defaults  Allow missing standard.conf (demo only; never for release)
   --help     Show this help
 EOF
 }
@@ -32,6 +34,7 @@ for arg in "$@"; do
     --release) MODE="release" ;;
     --ci)      MODE="ci" ;;
     --strict)  STRICT=1 ;;
+    --allow-defaults) ALLOW_DEFAULTS=1 ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Unknown argument: $arg" >&2; usage; exit 2 ;;
   esac
@@ -57,18 +60,23 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || {
 }
 cd "$ROOT" || exit 2
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONF=""
 for candidate in \
   "$ROOT/standard.conf" \
-  "$ROOT/docs/standards/standard.conf" \
-  "$SCRIPT_DIR/../standard.conf" \
-  "$SCRIPT_DIR/../presets/standard.conf"; do
+  "$ROOT/docs/standards/standard.conf"; do
   if [ -f "$candidate" ]; then
     CONF="$(cd "$(dirname "$candidate")" && pwd)/$(basename "$candidate")"
     break
   fi
 done
+
+if [ -z "$CONF" ] && [ "$ALLOW_DEFAULTS" != "1" ]; then
+  echo "FAIL: no standard.conf found." >&2
+  echo "Create one: cp docs/standards/presets/standard.conf ./standard.conf" >&2
+  echo "Then edit PROJECT_NAME / VERSION_SCHEME / DEFAULT_BRANCH." >&2
+  echo "Refusing to guess with defaults (fail-closed). Use --allow-defaults only for a demo." >&2
+  exit 2
+fi
 
 # Defaults (a config file can override)
 PROJECT_NAME="my-project"
@@ -85,6 +93,12 @@ REQUIRE_TAG=1
 MAX_FILE_MB=5
 ALLOW_TRACKED_DIST=0
 SECRET_SCAN=1
+REMOTE="origin"
+LEDGER_FILE=".release/current"
+LIVE_VERSION_URL=""
+TAG_PATTERN=""
+MAX_COMMIT_FILES=20
+MAX_COMMIT_LINES=400
 DOCS_VERSIONING=1
 CHANGELOG=0
 MODULES=""
@@ -108,6 +122,12 @@ fi
 : "${MAX_FILE_MB:=5}"
 : "${ALLOW_TRACKED_DIST:=0}"
 : "${SECRET_SCAN:=1}"
+: "${REMOTE:=origin}"
+: "${LEDGER_FILE:=.release/current}"
+: "${LIVE_VERSION_URL:=}"
+: "${TAG_PATTERN:=}"
+: "${MAX_COMMIT_FILES:=20}"
+: "${MAX_COMMIT_LINES:=400}"
 : "${DOCS_VERSIONING:=1}"
 : "${CHANGELOG:=0}"
 : "${MODULES:=}"
@@ -115,8 +135,12 @@ fi
 
 printf '\n%sAI Dev Standard preflight%s · %s · mode=%s\n' "$C_DIM" "$C_RESET" "$PROJECT_NAME" "$MODE"
 printf '%srepo: %s%s\n\n' "$C_DIM" "$ROOT" "$C_RESET"
-if [ -n "$CONF" ]; then note "config: ${CONF#$ROOT/}"; else note "no standard.conf found; using defaults"; fi
+if [ -n "$CONF" ]; then note "config: ${CONF#$ROOT/}"; else note "no standard.conf found; --allow-defaults is active"; fi
 note "scheme=$VERSION_SCHEME · main=$DEFAULT_BRANCH · tz=$TIMEZONE"
+
+if [ "$ALLOW_DEFAULTS" != "1" ] && { [ -z "$PROJECT_NAME" ] || [ "$PROJECT_NAME" = "my-project" ]; }; then
+  fail "standard.conf still has the placeholder PROJECT_NAME (my-project); edit it before checking"
+fi
 note "docs-versioning=$DOCS_VERSIONING · changelog=$CHANGELOG · modules=${MODULES:-single} · require-pr=$REQUIRE_PR"
 
 # ---------------------------------------------------------------- branch & tree
@@ -239,6 +263,82 @@ if [ "$MODE" = "release" ] && [ "$REQUIRE_TAG" = "1" ]; then
   else
     fail "tag does not exist: $TAG"
     note "create: git tag -a \"$TAG\" -m \"release $TAG\""
+  fi
+fi
+
+# ---------------------------------------------------------------- traceability
+if [ "$MODE" != "ci" ]; then
+  upstream="$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>/dev/null || true)"
+  if [ -n "$upstream" ]; then
+    ahead="$(git rev-list --count "$upstream..HEAD" 2>/dev/null || echo 0)"
+    behind="$(git rev-list --count "HEAD..$upstream" 2>/dev/null || echo 0)"
+    if [ "$ahead" -gt 0 ]; then
+      if [ "$MODE" = "release" ]; then
+        fail "unpushed commits: HEAD is ${ahead} commit(s) ahead of $upstream"
+      else
+        warn "unpushed commits: HEAD is ${ahead} commit(s) ahead of $upstream"
+      fi
+    else
+      pass "HEAD is pushed to $upstream"
+    fi
+    if [ "$behind" -gt 0 ]; then
+      warn "behind $upstream by ${behind} commit(s); fetch/rebase before release"
+    fi
+  else
+    warn "branch has no upstream (push -u once, or this repo only exists locally)"
+  fi
+fi
+
+if [ -n "$LEDGER_FILE" ] && [ -f "$LEDGER_FILE" ] && [ -n "$VERSION" ]; then
+  ledger="$(tr -d '[:space:]' < "$LEDGER_FILE")"
+  if [ "$ledger" = "$VERSION" ]; then
+    pass "ledger matches version: $LEDGER_FILE"
+  else
+    if [ "$MODE" = "release" ]; then
+      fail "ledger drift: $LEDGER_FILE=$ledger, $VERSION_FILE=$VERSION"
+    else
+      warn "ledger drift: $LEDGER_FILE=$ledger, $VERSION_FILE=$VERSION"
+    fi
+  fi
+fi
+
+if [ -z "$TAG_PATTERN" ]; then
+  case "$VERSION_SCHEME" in
+    dated)  TAG_PATTERN='^R[0-9]{8}\.[0-9]{2,3}$' ;;
+    semver) TAG_PATTERN='^v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$' ;;
+  esac
+fi
+tag_to_check=""
+if [ "$MODE" = "release" ] && [ -n "$TAG" ]; then
+  tag_to_check="$TAG"
+else
+  tag_to_check="$(git describe --tags --abbrev=0 2>/dev/null || true)"
+fi
+if [ -n "$tag_to_check" ] && [ -n "$TAG_PATTERN" ]; then
+  if [[ "$tag_to_check" =~ $TAG_PATTERN ]]; then
+    pass "tag naming: $tag_to_check"
+  else
+    if [ "$MODE" = "release" ]; then
+      fail "tag naming does not match scheme: $tag_to_check (pattern=$TAG_PATTERN)"
+    else
+      warn "latest tag does not match scheme: $tag_to_check (pattern=$TAG_PATTERN)"
+    fi
+  fi
+fi
+
+if git rev-parse --verify HEAD >/dev/null 2>&1; then
+  head_subject="$(git log -1 --format=%s)"
+  if [[ "$head_subject" =~ ^(feat|fix|docs|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9._-]+\))?:\ .{2,} ]] || [[ "$head_subject" =~ ^(Merge|Revert|Reapply)\  ]]; then
+    pass "commit message: conventional"
+  else
+    warn "commit message is not Conventional Commits: $head_subject"
+  fi
+
+  read -r changed_files changed_lines < <(git show --numstat --format='' HEAD | awk 'NF>=3 {f++; l += $1+$2} END {print f+0, l+0}')
+  if [ "$changed_files" -gt "$MAX_COMMIT_FILES" ] || [ "$changed_lines" -gt "$MAX_COMMIT_LINES" ]; then
+    warn "last commit is large: ${changed_files} files / ${changed_lines} lines (target <= ${MAX_COMMIT_FILES}/${MAX_COMMIT_LINES})"
+  else
+    pass "commit size: ${changed_files} files / ${changed_lines} lines"
   fi
 fi
 

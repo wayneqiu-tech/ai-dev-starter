@@ -22,6 +22,16 @@
 <command>
 ```
 
+## Before release
+
+```bash
+bash docs/standards/scripts/preflight.sh --release
+bash scripts/check-release-sync.sh
+```
+
+The first checks the local repo; the second checks that HEAD is pushed, the
+ledger matches the live `/version`, and HEAD is tagged.
+
 ## Configuration
 
 Copy `.env.example` to `.env` (or use environment variables) and fill in the

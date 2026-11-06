@@ -43,7 +43,7 @@ Most teams don't fail because of one big mistake. They fail because of loops:
 
 - A **default baseline** for solo developers, citizen developers, and small teams who use AI to write code.
 - A **contract between you and the AI**: what to read, what to do, what not to touch, how to prove it is done.
-- A **checkable** baseline: version format, tags, release notes, secrets, and large files can be verified by `scripts/preflight.sh` and CI.
+- A **checkable** baseline: version format, tags, release notes, secrets, large files, unpushed commits, ledger drift, and live version can be verified by `preflight.sh`, `check-release-sync.sh`, and CI.
 - A **starting point** you can fork, trim, or make stricter.
 
 ## Status (public beta)
@@ -174,6 +174,26 @@ If you don't use DSH, ignore the `.dsh/` folder.
 
 ---
 
+## Check what preflight cannot see
+
+`preflight.sh` is local and read-only. It cannot know whether the release is on
+the remote, whether the ledger matches the live service, or whether HEAD is
+tagged. Use the sync check too:
+
+```bash
+bash scripts/check-release-sync.sh
+```
+
+It checks three things:
+
+1. `HEAD` equals `origin/<branch>` (the release is not only on this laptop).
+2. the ledger / `VERSION` equals the live `/version` endpoint (no ledger drift).
+3. `HEAD` has a tag, and the tag matches the ledger (a release is reproducible).
+
+`LIVE_VERSION_URL` is optional; set it in `standard.conf` or the environment.
+
+---
+
 ## Three levels: pick one
 
 | Level | For | What you get | What you can skip |
@@ -205,6 +225,7 @@ Presets live in [`presets/`](presets/). Start with `standard.conf`; move up only
 ├─ presets/                       # minimal / standard / strict
 ├─ scripts/
 │  ├─ preflight.sh                # read-only self-check
+│  ├─ check-release-sync.sh       # remote / ledger / live / tag sync
 │  ├─ cleanup.sh                  # weekly junk cleanup + 7-day trash
 │  └─ init-project.sh             # one-command bootstrap (git/commit/tag/CI/hook)
 ├─ examples/hello-standard/       # a runnable example (Node, no dependencies)

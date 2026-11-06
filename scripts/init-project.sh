@@ -120,7 +120,7 @@ copy_dir_if_absent() {
 echo "AI Dev Standard → $TARGET"
 echo "  project: $NAME · lang: $LANG_CODE · version: $([ "$SEMVER" = "1" ] && echo semver || echo dated)"
 
-mkdir -p "$TARGET/docs/standards/docs" "$TARGET/docs/releases" "$TARGET/.github/workflows" "$TARGET/.dsh/skills/ai-dev-standard"
+mkdir -p "$TARGET/docs/standards/docs" "$TARGET/docs/releases" "$TARGET/.github/workflows" "$TARGET/.dsh/skills/ai-dev-standard" "$TARGET/scripts"
 
 # --- handbook ---------------------------------------------------------------
 copy_if_absent "$SRC/README.md" "$TARGET/docs/standards/README.md"
@@ -154,6 +154,8 @@ else
 fi
 
 copy_if_absent "$SRC/templates/dsh-skill/SKILL.md" "$TARGET/.dsh/skills/ai-dev-standard/SKILL.md"
+copy_if_absent "$SRC/scripts/check-release-sync.sh" "$TARGET/scripts/check-release-sync.sh"
+chmod 755 "$TARGET/scripts/check-release-sync.sh" 2>/dev/null || true
 copy_if_absent "$SRC/templates/gitignore.txt" "$TARGET/.gitignore"
 copy_if_absent "$SRC/presets/standard.conf" "$TARGET/standard.conf"
 
