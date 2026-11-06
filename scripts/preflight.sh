@@ -334,11 +334,13 @@ if git rev-parse --verify HEAD >/dev/null 2>&1; then
     warn "commit message is not Conventional Commits: $head_subject"
   fi
 
-  read -r changed_files changed_lines < <(git show --numstat --format='' HEAD | awk 'NF>=3 {f++; l += $1+$2} END {print f+0, l+0}')
-  if [ "$changed_files" -gt "$MAX_COMMIT_FILES" ] || [ "$changed_lines" -gt "$MAX_COMMIT_LINES" ]; then
-    warn "last commit is large: ${changed_files} files / ${changed_lines} lines (target <= ${MAX_COMMIT_FILES}/${MAX_COMMIT_LINES})"
-  else
-    pass "commit size: ${changed_files} files / ${changed_lines} lines"
+  if [ "$(git rev-list --count HEAD)" -gt 1 ]; then
+    read -r changed_files changed_lines < <(git show --numstat --format='' HEAD | awk 'NF>=3 {f++; l += $1+$2} END {print f+0, l+0}')
+    if [ "$changed_files" -gt "$MAX_COMMIT_FILES" ] || [ "$changed_lines" -gt "$MAX_COMMIT_LINES" ]; then
+      warn "last commit is large: ${changed_files} files / ${changed_lines} lines (target <= ${MAX_COMMIT_FILES}/${MAX_COMMIT_LINES})"
+    else
+      pass "commit size: ${changed_files} files / ${changed_lines} lines"
+    fi
   fi
 fi
 
