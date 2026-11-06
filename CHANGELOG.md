@@ -5,6 +5,15 @@ All notable changes to **AI Dev Standard** are documented here.
 The project uses SemVer for its own releases: `MAJOR.MINOR.PATCH`.
 The version lives in `VERSION`; tags are `vX.Y.Z`.
 
+## [0.9.2] — 2026-11-07 (public beta)
+
+### Changed
+
+- Positioning: **a development-process standard, not a project diagnostic tool.**
+  README (EN/ZH), GitHub About, and the release description now state what it
+  covers and does not cover (business, architecture, security audit, performance,
+  compliance).
+
 ## [0.9.1] — 2026-11-07 (public beta)
 
 ### Added

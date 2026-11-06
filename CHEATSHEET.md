@@ -1,6 +1,6 @@
 # AI Dev Standard — Cheatsheet
 
-> One page. Print it or pin it. Version 0.9.1 (public beta) · [中文](CHEATSHEET.zh.md) · [Full baseline](README.md)
+> One page. Print it or pin it. Version 0.9.2 (public beta) · [中文](CHEATSHEET.zh.md) · [Full baseline](README.md)
 
 ## 1. Daily (30 seconds)
 
