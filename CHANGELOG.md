@@ -5,7 +5,7 @@ All notable changes to **AI Dev Standard** are documented here.
 The project uses SemVer for its own releases: `MAJOR.MINOR.PATCH`.
 The version lives in `VERSION`; tags are `vX.Y.Z`.
 
-## [Unreleased]
+## [0.9.1] — 2026-11-07 (public beta)
 
 ### Added
 

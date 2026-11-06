@@ -14,7 +14,7 @@ It fixes six beginner problems:
 - **A repo that grows into a junk pile** → weekly cleanup, with a 7-day trash
 - **“What do I even say to the AI?”** → 12 copy-paste prompt cards
 
-> Public beta 0.9.0 · not a formal standard yet · [简体中文](README.zh.md)
+> Public beta 0.9.1 · not a formal standard yet · [简体中文](README.zh.md)
 > New here? Read [START_HERE.zh.md](START_HERE.zh.md).
 
 Built from **47 real engineering failures**, distilled into **30 patterns**, templates,
@@ -48,7 +48,7 @@ Most teams don't fail because of one big mistake. They fail because of loops:
 
 ## Status (public beta)
 
-- **0.9.0 public beta** — adopt it, but expect changes.
+- **0.9.1 public beta** — adopt it, but expect changes.
 - **Stable enough to use:** templates, presets, `preflight.sh`, `cleanup.sh`, `init-project.sh`.
 - **May change before 1.0:** rule names, level boundaries, wording, default scripts.
 - **1.0 criteria:** 10 beginners complete the 30-minute path, 5 real friction issues closed,
@@ -215,7 +215,7 @@ Presets live in [`presets/`](presets/). Start with `standard.conf`; move up only
 ├─ PROMPTS.zh.md                  # copy-paste instructions for common tasks
 ├─ TROUBLESHOOTING.zh.md          # what to say when something breaks
 ├─ CHEATSHEET.md / .zh.md         # one-page printable summary
-├─ VERSION                        # the baseline's own version (0.9.0)
+├─ VERSION                        # the baseline's own version (0.9.1)
 ├─ standard.conf                 # repo config for preflight
 ├─ docs/
 │  ├─ en/  zh/                    # 7 guides, bilingual

@@ -273,11 +273,8 @@ if [ "$MODE" != "ci" ]; then
     ahead="$(git rev-list --count "$upstream..HEAD" 2>/dev/null || echo 0)"
     behind="$(git rev-list --count "HEAD..$upstream" 2>/dev/null || echo 0)"
     if [ "$ahead" -gt 0 ]; then
-      if [ "$MODE" = "release" ]; then
-        fail "unpushed commits: HEAD is ${ahead} commit(s) ahead of $upstream"
-      else
-        warn "unpushed commits: HEAD is ${ahead} commit(s) ahead of $upstream"
-      fi
+      # preflight --release runs before push; the post-push gate is check-release-sync.sh
+      warn "unpushed commits: HEAD is ${ahead} commit(s) ahead of $upstream"
     else
       pass "HEAD is pushed to $upstream"
     fi
