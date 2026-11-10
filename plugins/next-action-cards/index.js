@@ -97,6 +97,36 @@ Never end with "if you want, I can..." prose. If action cards are unavailable, u
         data: proposal.details,
       };
       ctx.actionCards.record(agent, decision);
+
+      if (verb !== 'stop') {
+        // Recording a decision does not wake the agent. Queue a real follow-up
+        // so the model receives the status notice and continues the action.
+        const detail = proposal.details.url
+          ? ` URL: ${proposal.details.url}`
+          : proposal.details.command
+            ? ` Command: ${proposal.details.command}`
+            : '';
+        try {
+          await agent.followup({
+            // DSH writes this object into the conversation verbatim. Without
+            // `role`, the model API rejects the whole request with
+            // "missing field `role`", so build a complete user message here.
+            id: crypto.randomUUID(),
+            role: 'user',
+            content: [{
+              type: 'text',
+              text: `User approved the Next Action "${proposal.details.label}".${detail} Continue with that action now.`,
+            }],
+            source: { kind: 'user' },
+          });
+        } catch (error) {
+          return {
+            status: 'unconfirmed',
+            reason: `card accepted but could not wake the agent: ${String(error?.message || error)}`,
+          };
+        }
+      }
+
       return { status: 'settled', decision };
     },
   });

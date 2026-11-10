@@ -1,6 +1,6 @@
 {
   "name": "@local/next-action-cards",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "private": true,
   "description": "AI Dev Standard Next Action Gate cards for DSH",
   "type": "module",

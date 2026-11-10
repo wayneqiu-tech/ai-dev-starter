@@ -7,6 +7,13 @@ The version lives in `VERSION`; tags are `vX.Y.Z`.
 
 ## [Unreleased]
 
+### Fixed
+
+- **Next Action Cards 0.1.5**: the wake-up message queued by
+  `agent.followup()` now carries `role: "user"` and a stable `id`. Without
+  `role` the model API rejected the whole request with
+  `missing field role` and the session stayed permanently stuck.
+
 ## [0.10.2] — 2026-11-11 (public beta)
 
 ### Added

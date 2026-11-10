@@ -6,7 +6,9 @@ window.__ModuleLoader__.load({
     const ACTION = 'next_action';
 
     function Body(props) {
-      const { summary, act, t } = props;
+      const { summary, act, t, decision } = props;
+      const [notice, setNotice] = React.useState('');
+      const [pending, setPending] = React.useState(false);
       const label = props.proposal?.details?.label || t('continue');
       const url = props.proposal?.details?.url;
       const href = typeof url === 'string' && /^https?:\/\//i.test(url) ? url : undefined;
@@ -21,6 +23,18 @@ window.__ModuleLoader__.load({
         cursor: 'pointer',
         textDecoration: 'none',
       };
+      const submit = async (verb) => {
+        setPending(true);
+        setNotice(t('sending'));
+        try {
+          const result = await act(verb);
+          setNotice(result?.status ? `${t('submitted')}: ${result.status}` : t('submitted'));
+        } catch (error) {
+          setNotice(`${t('failed')}: ${String(error?.message || error)}`);
+        } finally {
+          setPending(false);
+        }
+      };
       const action = href
         ? h(
             'a',
@@ -28,7 +42,7 @@ window.__ModuleLoader__.load({
               href,
               target: '_blank',
               rel: 'noopener noreferrer',
-              onClick: () => act('accept'),
+              onClick: () => submit('accept'),
               style,
             },
             label,
@@ -37,7 +51,8 @@ window.__ModuleLoader__.load({
             'button',
             {
               type: 'button',
-              onClick: () => act('accept'),
+              disabled: pending,
+              onClick: () => submit('accept'),
               style: { ...style, font: 'inherit' },
             },
             label,
@@ -50,11 +65,17 @@ window.__ModuleLoader__.load({
           'button',
           {
             type: 'button',
-            onClick: () => act('stop'),
+            onClick: () => submit('stop'),
+            disabled: pending,
             style: { ...style, font: 'inherit' },
           },
           t('stop'),
         )),
+        notice
+          ? h('div', { style: { marginTop: 8, fontSize: 12, opacity: 0.8 } }, notice)
+          : decision?.phase
+            ? h('div', { style: { marginTop: 8, fontSize: 12, opacity: 0.8 } }, `${t('phase')}: ${decision.phase}`)
+            : null,
       );
     }
 
@@ -64,8 +85,8 @@ window.__ModuleLoader__.load({
         ctx.effect(
           () =>
             ctx.locale.register('nextAction', {
-              en: { continue: 'Continue', stop: 'Stop' },
-              zh: { continue: '继续', stop: '停止' },
+              en: { continue: 'Continue', stop: 'Stop', sending: 'Submitting…', submitted: 'Submitted', failed: 'Submit failed', phase: 'Status' },
+              zh: { continue: '继续', stop: '停止', sending: '正在提交…', submitted: '已提交', failed: '提交失败', phase: '状态' },
             }),
           'next-action-cards: locale',
         );
