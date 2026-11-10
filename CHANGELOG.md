@@ -5,6 +5,27 @@ All notable changes to **AI Dev Standard** are documented here.
 The project uses SemVer for its own releases: `MAJOR.MINOR.PATCH`.
 The version lives in `VERSION`; tags are `vX.Y.Z`.
 
+## [Unreleased]
+
+### Added
+
+- Two delivery lanes: **Fast** (docs/copy/small UI, no schema/auth/payment/PII)
+  and **Controlled** (schema/auth/payment/PII/external systems).
+- One-decision Gate protocol (`templates/GATE.md`): Plan / Merge / Release;
+  one gate approves one action, never "always allow".
+- `templates/STATUS.md`: one capability table (status/evidence/gap) instead of a
+  long README status chain.
+- `templates/verify.sh`: fixed-summary check
+  (`VERIFY typecheck=... test=... build=... a11y=...`); installed to
+  `scripts/verify.sh` by `init-project.sh`.
+- `init-project.sh` installs `STATUS.md` and `scripts/verify.sh`.
+
+### Changed
+
+- AGENTS (EN/ZH): one feature per branch (5–8 commits, one PR), lane selection,
+  three gates, and explicit skip reporting.
+- PR templates: lane, verify summary, gate approval, STATUS update.
+
 ## [0.9.3] — 2026-11-07 (public beta)
 
 ### Added

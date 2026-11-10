@@ -22,6 +22,13 @@
 <command>
 ```
 
+## Status and verification
+
+- Capability status: `STATUS.md` (one table; README only links here).
+- Verify summary: `bash scripts/verify.sh`
+  (`typecheck` / `test` / `build` / `a11y`; skip is explicit).
+- Human gates: Plan / Merge / Release; use `docs/standards/templates/GATE.md`.
+
 ## Before release
 
 ```bash

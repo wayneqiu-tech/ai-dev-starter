@@ -186,6 +186,29 @@ bash scripts/check-release-sync.sh
 
 ---
 
+## 两档通道，三个 Gate
+
+不是所有改动都要走同样的仪式：
+
+| 通道 | 适用 | 要求 |
+|---|---|---|
+| **Fast** | 文案、样式、文档、小 UI；不碰 schema/auth/payment/PII | 一个分支/PR 可批量 3–5 个小改动；verify + 相关 a11y；一次自证 |
+| **Controlled** | schema/迁移、认证、计费、PII、真实外部系统 | 独立 PR；测试 + 回滚；人工 review；分阶段发布 |
+
+只在真正的门停：**Plan**、**Merge**、**Release**。用
+[`templates/GATE.md`](templates/GATE.md) 的“一次决策”卡片；一个 Gate 只批准一个动作。
+
+自证摘要：
+
+```bash
+bash scripts/verify.sh
+# VERIFY typecheck=pass test=pass build=pass a11y=skip reason=not-web
+```
+
+状态放在 [`STATUS.md`](templates/STATUS.md) 一张表里，不再在 README 堆长状态链。
+
+---
+
 ## 三档预设：先选一档
 
 | 档位 | 适合 | 你会得到 | 可以跳过 |
@@ -213,7 +236,7 @@ bash scripts/check-release-sync.sh
 │  ├─ en/  zh/                    # 7 篇，中英双语
 │  └─ releases/                   # 规范自身的发布单
 ├─ pitfalls/                      # 47 次事故提炼的 30 个模式
-├─ templates/                     # AGENTS、commit、PR、发布单、CI、健康检查、systemd、Docker、DSH Skill
+├─ templates/                     # AGENTS、GATE、STATUS、verify.sh、commit、PR、发布单、CI、健康检查、systemd、Docker、DSH Skill
 ├─ presets/                       # minimal / standard / strict
 ├─ scripts/
 │  ├─ preflight.sh                # 只读自检
