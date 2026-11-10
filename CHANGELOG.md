@@ -14,6 +14,16 @@ The version lives in `VERSION`; tags are `vX.Y.Z`.
   `role` the model API rejected the whole request with
   `missing field role` and the session stayed permanently stuck.
 
+## [0.10.4] — 2026-11-11 (public beta)
+
+### Added
+
+- `next_action` cards accept `title` and `body` details. For GitHub
+  `releases/new` URLs, the Client encodes both into the query string, so the
+  release form opens prefilled; the body is also copied to the clipboard as a
+  fallback.
+- Plugin version `0.1.6`.
+
 ## [0.10.3] — 2026-11-11 (public beta)
 
 ### Fixed

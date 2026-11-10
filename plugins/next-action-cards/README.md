@@ -58,6 +58,22 @@ target: <absolute-path-to-this-directory>
 - 不要用它做“合并 + 发布 + 清理”三合一批准；
 - 一个 turn 只允许一个卡片。
 
+## GitHub Release 预填
+
+卡片支持 `title` / `body` 字段。Client 识别 `github.com/.../releases/new`
+链接后，会把它们编码进 URL：
+
+```json
+{
+  "label": "打开 Release 页面",
+  "url": "https://github.com/wayneqiu-tech/ai-dev-starter/releases/new?tag=v0.10.3",
+  "title": "v0.10.3 - card wake fix",
+  "body": "## 0.10.3 ..."
+}
+```
+
+打开后标题/正文已预填，只需点 `Publish release`；同时正文会写入剪贴板作为兜底。
+
 ## 卡片字段
 
 ```json

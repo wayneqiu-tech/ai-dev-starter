@@ -11,7 +11,21 @@ window.__ModuleLoader__.load({
       const [pending, setPending] = React.useState(false);
       const label = props.proposal?.details?.label || t('continue');
       const url = props.proposal?.details?.url;
-      const href = typeof url === 'string' && /^https?:\/\//i.test(url) ? url : undefined;
+      const title = props.proposal?.details?.title;
+      const body = props.proposal?.details?.body;
+      const withPrefill = (raw) => {
+        try {
+          const parsed = new URL(raw);
+          if (parsed.hostname === 'github.com' && /\/releases\/new\/?$/.test(parsed.pathname)) {
+            if (typeof title === 'string' && title) parsed.searchParams.set('title', title);
+            if (typeof body === 'string' && body) parsed.searchParams.set('body', body);
+          }
+          return parsed.toString();
+        } catch {
+          return raw;
+        }
+      };
+      const href = typeof url === 'string' && /^https?:\/\//i.test(url) ? withPrefill(url) : undefined;
       const style = {
         display: 'inline-block',
         marginRight: 8,
@@ -42,7 +56,12 @@ window.__ModuleLoader__.load({
               href,
               target: '_blank',
               rel: 'noopener noreferrer',
-              onClick: () => submit('accept'),
+              onClick: () => {
+                if (typeof body === 'string' && body && navigator.clipboard?.writeText) {
+                  navigator.clipboard.writeText(body).catch(() => {});
+                }
+                submit('accept');
+              },
               style,
             },
             label,

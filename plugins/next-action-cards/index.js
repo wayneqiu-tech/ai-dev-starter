@@ -15,7 +15,7 @@ const details = {
       return { success: false, error: { issues: [{ path: ['label'], message: 'label is required' }] } };
     }
     const data = { label };
-    for (const key of ['url', 'command', 'reason']) {
+    for (const key of ['url', 'command', 'reason', 'title', 'body']) {
       if (typeof input[key] === 'string' && input[key].trim()) data[key] = input[key].trim();
     }
     return { success: true, data };
@@ -31,7 +31,7 @@ Call \`propose_action\` exactly once with:
 - \`action\`: \`next_action\`
 - \`title\`: a short action title (for example "Open pull request")
 - \`brief\`: one sentence explaining what the user is approving
-- \`details\`: \`{ "label": "<button label>", "url": "<optional URL>", "command": "<optional command>" }\`
+- \`details\`: \`{ "label": "<button label>", "url": "<optional URL>", "title": "<optional prefill title>", "body": "<optional prefill body>", "command": "<optional command>" }\`
 
 Then stop. Do not restate the card; the card appears below the answer.
 One card per turn. Never bundle merge, deploy and cleanup into one card.
@@ -48,7 +48,7 @@ export function apply(ctx) {
         order: 500,
         text: `AI Dev Standard: end every completed task with exactly one Next Action Gate.
 If the next-action skill is available, load it and call propose_action with action "next_action",
-a short title, a brief, and details { label, url? }. One primary action plus stop.
+a short title, a brief, and details { label, url?, title?, body? }. One primary action plus stop.
 Never end with "if you want, I can..." prose. If action cards are unavailable, use ask_user_question.`,
       }),
     'next-action-cards: system prompt',

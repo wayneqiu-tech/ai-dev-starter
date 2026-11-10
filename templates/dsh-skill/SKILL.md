@@ -7,7 +7,7 @@ user-invocable: true
 
 # AI Dev Standard（DSH Skill）
 
-你正在使用 **AI Dev Standard 0.10.3 公测**。它是“小白优先的工程基线”，不是正式标准，也不保证项目一定成功。
+你正在使用 **AI Dev Standard 0.10.4 公测**。它是“小白优先的工程基线”，不是正式标准，也不保证项目一定成功。
 
 ## 先读什么（按顺序）
 
