@@ -1,0 +1,7 @@
+- insert:
+    - id: next-action-action-cards
+      name: '@deepseek-ai/dsh-action-cards'
+    - id: next-action-client-action-cards
+      name: '@deepseek-ai/dsh-client-ui-action-cards'
+    - id: next-action-cards
+      name: '@local/next-action-cards'

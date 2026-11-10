@@ -7,7 +7,7 @@ user-invocable: true
 
 # AI Dev Standard（DSH Skill）
 
-你正在使用 **AI Dev Standard 0.10 公测**。它是“小白优先的工程基线”，不是正式标准，也不保证项目一定成功。
+你正在使用 **AI Dev Standard 0.10.1 公测**。它是“小白优先的工程基线”，不是正式标准，也不保证项目一定成功。
 
 ## 先读什么（按顺序）
 
@@ -49,6 +49,15 @@ user-invocable: true
 - 一个 `stop`；
 - 一次只给一个主行动，不把“合并 + 发布 + 清理”塞进一个按钮；
 - 没有可点击 UI 时，用编号选项。
+
+### 有 next-action 插件时
+
+如果 `next-action` 出现在技能目录，优先使用真实卡片：
+
+1. 加载 `/next-action`；
+2. 任务收尾调用 `propose_action`；
+3. 卡片必须有一个主行动 + `stop`；
+4. 没有插件时才退回 `ask_user_question`。
 
 ## 常用动作
 

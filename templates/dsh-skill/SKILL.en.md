@@ -7,7 +7,7 @@ user-invocable: true
 
 # AI Dev Standard (DSH Skill)
 
-You are using **AI Dev Standard 0.10 public beta**. It is a beginner-first process standard, not a formal standard, and it does not guarantee project success.
+You are using **AI Dev Standard 0.10.1 public beta**. It is a beginner-first process standard, not a formal standard, and it does not guarantee project success.
 
 ## Read first (in order)
 
@@ -49,6 +49,15 @@ End with exactly one `GATE: next` using the host's clickable question/approval U
 - one `stop`;
 - one primary action per gate; never bundle merge + release + cleanup into one button;
 - if no clickable UI exists, print numbered options.
+
+### When the next-action plugin is installed
+
+If `next-action` appears in the skill catalog, prefer the real card:
+
+1. Load `/next-action`.
+2. At task close, call `propose_action`.
+3. One primary action + `stop`.
+4. Fall back to `ask_user_question` only when the plugin is absent.
 
 ## Common actions
 

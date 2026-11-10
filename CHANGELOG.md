@@ -7,6 +7,28 @@ The version lives in `VERSION`; tags are `vX.Y.Z`.
 
 ## [Unreleased]
 
+## [0.10.1] — 2026-11-11 (public beta)
+
+### Added
+
+- **Next Action Cards plugin** (`plugins/next-action-cards`): a real DSH
+  Action Card bundle with Host kind + Client body, not just a template.
+  It registers the `next-action` skill and `next_action` cards; the URL button
+  opens directly, and clicking records `accepted` / `stopped` for the next turn.
+- Plugin README with install, field schema, verification and limitations.
+
+### Fixed
+
+- Card Body now reads `props.proposal.details` (not `props.card.details`), so
+  `details.url` is available and the primary action is a real link.
+
+### Known limits
+
+- The plugin inserts `actionCards` host/client rows; do not enable it together
+  with the personalized-recommendations action-card rows.
+- Only the current DSH profile has been tested; a fresh-profile install is still
+  required before claiming "download and it works everywhere".
+
 ## [0.10.0] — 2026-11-10 (public beta)
 
 ### Added
