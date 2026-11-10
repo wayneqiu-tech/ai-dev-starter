@@ -42,6 +42,15 @@ target: <absolute-path-to-this-directory>
 
 所以同一个 profile 下的所有工作区都会收到这条规则，不需要每个项目重复配置。
 
+## 点击后会发生什么
+
+1. 卡片立即显示“正在提交…”；
+2. `act` 记录 `accepted` / `stopped`；
+3. 接受时构造完整 `UserMessage`（`id` + `role: "user"` + `content` + `source`）并调用 `agent.followup()`；
+4. AI 被唤醒，下一轮收到状态回执并继续执行。
+
+只记录不唤醒会导致“已提交: settled 但 AI 没反应”；0.1.5 已修复。
+
 ## 什么时候用
 
 - 任务完成，且下一步可以立刻执行时；

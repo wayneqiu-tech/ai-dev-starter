@@ -7,7 +7,7 @@ user-invocable: true
 
 # AI Dev Standard (DSH Skill)
 
-You are using **AI Dev Standard 0.10.2 public beta**. It is a beginner-first process standard, not a formal standard, and it does not guarantee project success.
+You are using **AI Dev Standard 0.10.3 public beta**. It is a beginner-first process standard, not a formal standard, and it does not guarantee project success.
 
 ## Read first (in order)
 

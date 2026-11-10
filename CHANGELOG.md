@@ -14,6 +14,17 @@ The version lives in `VERSION`; tags are `vX.Y.Z`.
   `role` the model API rejected the whole request with
   `missing field role` and the session stayed permanently stuck.
 
+## [0.10.3] — 2026-11-11 (public beta)
+
+### Fixed
+
+- Clicking an accepted Next Action card now wakes the agent. The kind builds a
+  complete `UserMessage` (`id`, `role: "user"`, `content`, `source`) and calls
+  `agent.followup()`; before this, the card only recorded `accepted` and the AI
+  stayed idle.
+- Plugin version `0.1.5`; verified by a live card click that produced a new agent
+  turn.
+
 ## [0.10.2] — 2026-11-11 (public beta)
 
 ### Added

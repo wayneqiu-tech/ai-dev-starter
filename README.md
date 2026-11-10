@@ -9,7 +9,7 @@
 > New here? Start here: [START_HERE.md](START_HERE.md) · [简体中文](START_HERE.zh.md).
 
 
-> Public beta 0.10.2 · not a formal standard yet · [简体中文](README.zh.md)
+> Public beta 0.10.3 · not a formal standard yet · [简体中文](README.zh.md)
 
 
 Built from **47 real engineering failures**, distilled into **30 patterns**, templates,
@@ -43,7 +43,7 @@ Most teams don't fail because of one big mistake. They fail because of loops:
 
 ## Status (public beta)
 
-- **0.10.2 public beta** — adopt it, but expect changes.
+- **0.10.3 public beta** — adopt it, but expect changes.
 - **Stable enough to use:** templates, presets, `preflight.sh`, `cleanup.sh`, `init-project.sh`.
 - **May change before 1.0:** rule names, level boundaries, wording, default scripts.
 - **1.0 criteria:** 10 beginners complete the 30-minute path, 5 real friction issues closed,
@@ -243,7 +243,7 @@ Presets live in [`presets/`](presets/). Start with `standard.conf`; move up only
 ├─ PROMPTS.md / .zh.md            # copy-paste instructions for common tasks
 ├─ TROUBLESHOOTING.md / .zh.md    # what to say when something breaks
 ├─ CHEATSHEET.md / .zh.md         # one-page printable summary
-├─ VERSION                        # the baseline's own version (0.10.2)
+├─ VERSION                        # the baseline's own version (0.10.3)
 ├─ standard.conf                 # repo config for preflight
 ├─ docs/
 │  ├─ en/  zh/                    # 7 guides, bilingual
