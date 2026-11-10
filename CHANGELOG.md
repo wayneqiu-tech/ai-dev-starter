@@ -7,6 +7,8 @@ The version lives in `VERSION`; tags are `vX.Y.Z`.
 
 ## [Unreleased]
 
+## [0.10.0] — 2026-11-10 (public beta)
+
 ### Added
 
 - Two delivery lanes: **Fast** (docs/copy/small UI, no schema/auth/payment/PII)

@@ -7,7 +7,7 @@ user-invocable: true
 
 # AI Dev Standard (DSH Skill)
 
-You are using **AI Dev Standard 0.9 public beta**. It is a beginner-first process standard, not a formal standard, and it does not guarantee project success.
+You are using **AI Dev Standard 0.10 public beta**. It is a beginner-first process standard, not a formal standard, and it does not guarantee project success.
 
 ## Read first (in order)
 
@@ -110,6 +110,6 @@ Follow `docs/standards/docs/en/03-git-version-release.md` §4:
 
 ## Boundaries
 
-- 0.9 public beta, not a formal standard and not a certification.
+- 0.10 public beta, not a formal standard and not a certification.
 - It does not replace architecture, business, security, or compliance review.
 - Do not promise "nothing will go wrong"; promise "process accidents are less likely, and releases can be rolled back".
