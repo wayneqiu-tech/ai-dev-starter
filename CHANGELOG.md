@@ -7,6 +7,19 @@ The version lives in `VERSION`; tags are `vX.Y.Z`.
 
 ## [Unreleased]
 
+## [0.10.2] — 2026-11-11 (public beta)
+
+### Added
+
+- **Profile-level system prompt** in the Next Action Cards plugin. Installing the
+  bundle now adds the "finish every task with one Next Action Gate" rule to every
+  agent in the profile, so all workspaces inherit it without per-project AGENTS
+  edits.
+
+### Changed
+
+- Plugin version `0.1.2`; prompt section name `ai-dev:next-action`, order `500`.
+
 ## [0.10.1] — 2026-11-11 (public beta)
 
 ### Added

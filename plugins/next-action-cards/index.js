@@ -38,9 +38,22 @@ One card per turn. Never bundle merge, deploy and cleanup into one card.
 `;
 
 export const name = 'next-action-cards';
-export const inject = ['skills', 'actionCards'];
+export const inject = ['skills', 'actionCards', 'systemPrompt'];
 
 export function apply(ctx) {
+  ctx.effect(
+    () =>
+      ctx.systemPrompt.section({
+        name: 'ai-dev:next-action',
+        order: 500,
+        text: `AI Dev Standard: end every completed task with exactly one Next Action Gate.
+If the next-action skill is available, load it and call propose_action with action "next_action",
+a short title, a brief, and details { label, url? }. One primary action plus stop.
+Never end with "if you want, I can..." prose. If action cards are unavailable, use ask_user_question.`,
+      }),
+    'next-action-cards: system prompt',
+  );
+
   const candidate = {
     name: SKILL,
     description: 'Offer one executable next action as a clickable card at the end of a task.',

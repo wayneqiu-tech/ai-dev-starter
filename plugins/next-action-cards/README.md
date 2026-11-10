@@ -33,6 +33,15 @@ target: <absolute-path-to-this-directory>
 > `@deepseek-ai/dsh-personalized-recommendations`，不要同时启用两者的
 > action-cards 行，否则会重复注册同一个服务。
 
+## Profile 级 system prompt
+
+安装插件后，Host 会向整个 DSH profile 注入一条 system prompt：
+
+> 每个任务收尾必须使用 Next Action Gate；有 `next-action` 就用卡片，否则用
+> `ask_user_question`；禁止“如果你愿意，我可以……”式收尾。
+
+所以同一个 profile 下的所有工作区都会收到这条规则，不需要每个项目重复配置。
+
 ## 什么时候用
 
 - 任务完成，且下一步可以立刻执行时；
