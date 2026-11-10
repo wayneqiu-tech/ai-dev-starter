@@ -163,6 +163,9 @@ else
 fi
 copy_if_absent "$SRC/scripts/check-release-sync.sh" "$TARGET/scripts/check-release-sync.sh"
 chmod 755 "$TARGET/scripts/check-release-sync.sh" 2>/dev/null || true
+copy_if_absent "$SRC/templates/verify.sh" "$TARGET/scripts/verify.sh"
+chmod 755 "$TARGET/scripts/verify.sh" 2>/dev/null || true
+copy_if_absent "$SRC/templates/STATUS.md" "$TARGET/STATUS.md"
 copy_if_absent "$SRC/templates/gitignore.txt" "$TARGET/.gitignore"
 copy_if_absent "$SRC/presets/standard.conf" "$TARGET/standard.conf"
 

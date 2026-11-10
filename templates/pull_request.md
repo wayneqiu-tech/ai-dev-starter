@@ -2,6 +2,11 @@
 
 <!-- One sentence: whose problem, what scenario, what breaks if we don't change it. Refs #123 -->
 
+## Lane
+
+- [ ] **Fast** — copy/styles/docs/small UI; no schema/auth/payment/PII; one branch may batch 3–5 changes
+- [ ] **Controlled** — schema/auth/payment/PII/real integrations; independent PR + review + staged release
+
 ## What changed
 
 <!-- By module. Describe behavior changes and trade-offs, not a file list. -->
@@ -12,10 +17,10 @@
 
 <!-- Paste commands and key output. Never write "should work". -->
 
-- [ ] `npm test` (passed / failed counts)
-- [ ] `npm run build`
+- [ ] `bash scripts/verify.sh` (paste the `VERIFY ...` summary)
 - [ ] Manual: <steps + result>
 - [ ] `preflight` has no new FAIL
+- [ ] Gate: merge approval recorded (`docs/standards/templates/GATE.md`)
 
 ## Risk and rollback
 
@@ -31,6 +36,7 @@
 - [ ] No secrets, real IPs, or debug code
 - [ ] No tests deleted or skipped
 - [ ] Docs/release note updated if needed
+- [ ] `STATUS.md` updated if a capability moved
 - [ ] New dependency reviewed (license, size, necessity)
 
 ## AI involvement

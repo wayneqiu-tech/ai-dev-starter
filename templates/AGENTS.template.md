@@ -22,7 +22,8 @@
 src/            application code (most changes happen here)
 tests/          tests
 docs/           docs; releases/ = release notes, standards/ = rules
-scripts/        build, release, checks
+scripts/        build, release, checks; verify.sh = fixed-summary checks
+STATUS.md       capability status table (README only links here)
 config/         config templates (never real secrets)
 public/         static assets
 dist/           build output (never edit or commit)
@@ -44,7 +45,7 @@ dist/           build output (never edit or commit)
 ## 5. How to work
 
 1. **Plan first.** At most 3 steps: which files, how to verify. Wait for approval on large changes.
-2. **Change small.** One concern at a time. More than 10 files or 400 lines: split first.
+2. **Change small.** One concern per commit. Fast lane may batch 3–5 small changes in one PR; more than 10 files or 400 lines: split first.
 3. **Verify as you go.** Run the relevant tests/build after each chunk.
 4. **Self-prove.** At the end, provide:
    - files changed (one line each, why)
@@ -53,9 +54,37 @@ dist/           build output (never edit or commit)
    - what you did not do / known limits
 5. **Ask when unsure.** Do not guess business rules, ports, or "what the user probably wants".
 
+### 5.1 Pick one lane (do not use one process for everything)
+
+| Lane | Use when | Required |
+|---|---|---|
+| **Fast** | copy, styles, docs, small UI; **no** schema/auth/payment/PII | one branch/PR may batch 3–5 small changes; typecheck + build + relevant a11y; one self-proof; human confirms |
+| **Controlled** | schema/migration, auth, billing/refund, PII, real external systems | independent branch/PR; tests + migration/rollback note; human review; staged release |
+
+If unsure, choose **Controlled**. A Fast change that grows into schema/auth/payment/PII must switch lanes.
+
+### 5.2 Gates, not repeated check-ins
+
+Stop only at real gates:
+
+- **Plan gate** — before a large/ambiguous change.
+- **Merge gate** — after the feature is done and verified.
+- **Release gate** — before deploy/tag, only for Controlled.
+
+At each gate, output the block in `docs/standards/templates/GATE.md` and wait. One gate approves one action; never "always allow" merge/deploy/delete. Small steps inside a feature do not need a stop each.
+
+### 5.3 Every task ends with a Next Action Gate
+
+When the task is done, do **not** end with "if you want, I can..." prose. End with exactly one `GATE: next`:
+
+- one executable primary action (open PR page / merge PR / prepare release / run verify);
+- one `stop`;
+- if the host has clickable questions or approvals, render buttons; otherwise print numbered options.
+
 ## 6. Branch and commit
 
-- For each task, create a branch from `main`: `feat/<slug>`, `fix/<slug>`, `docs/<slug>`, `chore/<slug>`.
+- One **feature** per branch: `feat/<slug>`, `fix/<slug>`, `docs/<slug>`, `chore/<slug>`. A feature may contain 5–8 commits; do not create a branch per interaction.
+- Fast lane may batch 3–5 small changes in one branch/PR; Controlled lane gets its own branch/PR.
 - You may run `git switch -c`, `git add`, and `git commit` **on that branch**.
 - Stop before `git merge`, `git push`, `git tag`, or deploying. Ask the human; those actions are not yours.
 - If this is not a Git repo, or you cannot run Git, stop and ask. Do not guess.
@@ -77,6 +106,9 @@ dist/           build output (never edit or commit)
 # build
 <npm run build>
 
+# fixed-summary verification
+bash scripts/verify.sh
+
 # self-check
 bash docs/standards/scripts/preflight.sh
 
@@ -89,6 +121,8 @@ bash docs/standards/scripts/preflight.sh --release
 - [ ] Acceptance criteria met
 - [ ] Relevant tests pass (paste output)
 - [ ] Build passes (paste output)
+- [ ] `verify.sh` summary pasted (`typecheck/test/build/a11y`; skip is explicit)
+- [ ] `STATUS.md` updated if a capability moved
 - [ ] `preflight` has no new FAIL
 - [ ] No secrets, hardcoding, or debug code
 - [ ] Docs/release note updated if behavior/config/version changed
@@ -108,3 +142,5 @@ bash docs/standards/scripts/preflight.sh --release
 | `docs/standards/` | the full standard |
 | `docs/standards/pitfalls/` | why these rules exist |
 | `docs/releases/` | release notes |
+| `docs/standards/templates/GATE.md` | one-decision gate card |
+| `STATUS.md` | capability status, evidence, gaps |

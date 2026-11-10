@@ -22,7 +22,8 @@
 src/            应用代码（主要改这里）
 tests/          测试
 docs/           文档；releases/ 是发布单，standards/ 是规范
-scripts/        构建、发布、检查脚本
+scripts/        构建、发布、检查脚本；verify.sh 是固定摘要检查
+STATUS.md       能力状态表（README 只放链接）
 config/         配置模板（不要放真实密钥）
 public/         静态资源
 dist/           构建产物（不要手改，不要提交）
@@ -44,7 +45,7 @@ dist/           构建产物（不要手改，不要提交）
 ## 5. 工作方式
 
 1. **先说计划**：3 步以内，说明改哪些文件、怎么验证；大改等我确认。
-2. **小步改**：一次只做一件事；超过 10 个文件或 400 行，先拆。
+2. **小步改**：一个提交只做一件事；Fast 通道可以在一个 PR 批量 3–5 个小改动；超过 10 个文件或 400 行，先拆。
 3. **边改边验证**：每完成一块，跑相关测试/构建。
 4. **自证**：结束时给出：
    - 改了哪些文件（每个一句话，为什么）
@@ -53,9 +54,35 @@ dist/           构建产物（不要手改，不要提交）
    - 没做什么/已知限制
 5. **不确定就问**：不要猜业务规则、不要猜端口、不要猜“用户大概想要”。
 
+### 5.1 先选通道（不要所有项目一刀切）
+
+| 通道 | 适用 | 要求 |
+|---|---|---|
+| **Fast** | 文案、样式、文档、小 UI；**不碰** schema/auth/payment/PII | 一个分支/PR 可批量 3–5 个小改动；typecheck + build + 相关 a11y；一次自证；人工确认 |
+| **Controlled** | schema/迁移、认证、计费/退款、PII、真实外部系统 | 独立分支/PR；单测 + 迁移/回滚说明；人工 review；分阶段发布 |
+
+不确定就选 **Controlled**。Fast 改动一旦碰到 schema/auth/payment/PII，必须切到 Controlled。
+
+### 5.2 只在真正的门停
+
+- **Plan Gate**：大改/需求不清时，确认方案。
+- **Merge Gate**：功能完成、验证通过后，确认合并。
+- **Release Gate**：部署/打 tag 前，仅 Controlled。
+
+每个 Gate 输出 `docs/standards/templates/GATE.md` 的卡片并等待。一个 Gate 只批准一个动作；不允许“总是允许”合并/部署/删除。功能内部的子步骤不要每步都停。
+
+### 5.3 每次收尾都要有 Next Action Gate
+
+任务完成时，**不要**用“如果你愿意，我可以……”收尾。必须输出且只输出一个 `GATE: next`：
+
+- 一个可执行的主行动（打开 PR 页 / 合并 PR / 准备发布 / 跑验证）；
+- 一个 `stop`；
+- 宿主支持可点击问题时用按钮，不支持就用编号选项。
+
 ## 6. 分支与提交
 
-- 每个任务从 `main` 切一个分支：`feat/<slug>`、`fix/<slug>`、`docs/<slug>`、`chore/<slug>`。
+- **一个功能一个分支**：`feat/<slug>`、`fix/<slug>`、`docs/<slug>`、`chore/<slug>`；一个功能可以有 5–8 个提交，不要一个交互一个分支。
+- Fast 通道可以在同一分支/PR 批量做 3–5 个小改动；Controlled 通道必须独立分支/PR。
 - 你可以在**这个分支上**执行 `git switch -c`、`git add`、`git commit`。
 - 合并、push、打 tag、部署之前必须停下来问我；这些不是你的权限。
 - 如果目录不是 Git 仓库，或者你不能执行 Git，停下来问，不要猜。
@@ -77,6 +104,9 @@ dist/           构建产物（不要手改，不要提交）
 # 构建
 <npm run build>
 
+# 固定摘要验证
+bash scripts/verify.sh
+
 # 规范自检
 bash docs/standards/scripts/preflight.sh
 
@@ -89,6 +119,8 @@ bash docs/standards/scripts/preflight.sh --release
 - [ ] 验收项全部满足
 - [ ] 相关测试通过（贴输出）
 - [ ] 构建通过（贴输出）
+- [ ] `verify.sh` 摘要已贴（`typecheck/test/build/a11y`；skip 必须写明）
+- [ ] 能力状态变化时已更新 `STATUS.md`
 - [ ] `preflight` 没有新增 FAIL
 - [ ] 没有密钥/硬编码/调试代码
 - [ ] 涉及行为/配置/版本时，文档/发布单已更新
@@ -108,3 +140,5 @@ bash docs/standards/scripts/preflight.sh --release
 | `docs/standards/` | 完整规范 |
 | `docs/standards/pitfalls/` | 为什么有这些规则 |
 | `docs/releases/` | 发布单 |
+| `docs/standards/templates/GATE.md` | 一次决策的 Gate 卡片 |
+| `STATUS.md` | 能力状态、证据、缺口 |

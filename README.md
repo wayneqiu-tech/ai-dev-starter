@@ -190,6 +190,32 @@ It checks three things:
 
 ---
 
+## Two lanes, three gates
+
+Not every change needs the same ceremony:
+
+| Lane | Use when | Required |
+|---|---|---|
+| **Fast** | copy, styles, docs, small UI; no schema/auth/payment/PII | one branch/PR may batch 3–5 small changes; verify + relevant a11y; one self-proof |
+| **Controlled** | schema/migration, auth, billing, PII, real integrations | independent PR; tests + rollback; human review; staged release |
+
+Stop only at real gates: **Plan**, **Merge**, **Release**. Use the one-decision card in
+[`templates/GATE.md`](templates/GATE.md); one gate approves one action.
+
+Verification summary:
+
+```bash
+bash scripts/verify.sh
+# VERIFY typecheck=pass test=pass build=pass a11y=skip reason=not-web
+```
+
+Status lives in [`STATUS.md`](templates/STATUS.md) (one table), not a long README chain.
+
+Every task ends with a single **Next Action Gate**: one executable button and `stop`, not an
+"if you want, I can..." paragraph. See [`templates/GATE.md`](templates/GATE.md).
+
+---
+
 ## Three levels: pick one
 
 | Level | For | What you get | What you can skip |
@@ -217,7 +243,7 @@ Presets live in [`presets/`](presets/). Start with `standard.conf`; move up only
 │  ├─ en/  zh/                    # 7 guides, bilingual
 │  └─ releases/                   # release notes for the standard itself
 ├─ pitfalls/                      # 30 patterns distilled from 47 real failures
-├─ templates/                     # AGENTS, commit, PR, release note, CI, healthcheck, systemd, Docker, DSH skill
+├─ templates/                     # AGENTS, GATE, STATUS, verify.sh, commit, PR, release note, CI, healthcheck, systemd, Docker, DSH skill
 ├─ presets/                       # minimal / standard / strict
 ├─ scripts/
 │  ├─ preflight.sh                # read-only self-check
