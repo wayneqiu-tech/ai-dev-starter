@@ -73,6 +73,14 @@ Stop only at real gates:
 
 At each gate, output the block in `docs/standards/templates/GATE.md` and wait. One gate approves one action; never "always allow" merge/deploy/delete. Small steps inside a feature do not need a stop each.
 
+### 5.3 Every task ends with a Next Action Gate
+
+When the task is done, do **not** end with "if you want, I can..." prose. End with exactly one `GATE: next`:
+
+- one executable primary action (open PR page / merge PR / prepare release / run verify);
+- one `stop`;
+- if the host has clickable questions or approvals, render buttons; otherwise print numbered options.
+
 ## 6. Branch and commit
 
 - One **feature** per branch: `feat/<slug>`, `fix/<slug>`, `docs/<slug>`, `chore/<slug>`. A feature may contain 5–8 commits; do not create a branch per interaction.

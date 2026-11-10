@@ -15,6 +15,8 @@ The version lives in `VERSION`; tags are `vX.Y.Z`.
   one gate approves one action, never "always allow".
 - `templates/STATUS.md`: one capability table (status/evidence/gap) instead of a
   long README status chain.
+- `templates/GATE.md` now includes `GATE: next`; every task must end with one
+  executable next action plus `stop`, not free-text "if you want" prose.
 - `templates/verify.sh`: fixed-summary check
   (`VERIFY typecheck=... test=... build=... a11y=...`); installed to
   `scripts/verify.sh` by `init-project.sh`.

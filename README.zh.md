@@ -207,6 +207,8 @@ bash scripts/verify.sh
 
 状态放在 [`STATUS.md`](templates/STATUS.md) 一张表里，不再在 README 堆长状态链。
 
+每次任务收尾都必须是一个 **Next Action Gate**：一个可执行按钮 + `stop`，不再用“如果你愿意，我可以……”收尾。见 [`templates/GATE.md`](templates/GATE.md)。
+
 ---
 
 ## 三档预设：先选一档

@@ -40,6 +40,16 @@ Use 3 lines, not an essay:
 - **Never weaken tests**: do not delete, skip, or rewrite assertions to make a test pass.
 - **Stay in scope**: change only the files named in the task; record other issues instead of fixing them.
 
+## Closing rule: Next Action Gate
+
+When a task is done, do **not** end with "if you want, I can..." prose.
+End with exactly one `GATE: next` using the host's clickable question/approval UI:
+
+- one executable primary action (open PR page, merge PR, prepare release, run verify);
+- one `stop`;
+- one primary action per gate; never bundle merge + release + cleanup into one button;
+- if no clickable UI exists, print numbered options.
+
 ## Common actions
 
 ```bash

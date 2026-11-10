@@ -211,6 +211,9 @@ bash scripts/verify.sh
 
 Status lives in [`STATUS.md`](templates/STATUS.md) (one table), not a long README chain.
 
+Every task ends with a single **Next Action Gate**: one executable button and `stop`, not an
+"if you want, I can..." paragraph. See [`templates/GATE.md`](templates/GATE.md).
+
 ---
 
 ## Three levels: pick one

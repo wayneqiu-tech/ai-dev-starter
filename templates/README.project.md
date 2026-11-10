@@ -27,7 +27,8 @@
 - Capability status: `STATUS.md` (one table; README only links here).
 - Verify summary: `bash scripts/verify.sh`
   (`typecheck` / `test` / `build` / `a11y`; skip is explicit).
-- Human gates: Plan / Merge / Release; use `docs/standards/templates/GATE.md`.
+- Human gates: Plan / Merge / Release / Next; use `docs/standards/templates/GATE.md`.
+- Every task ends with one clickable `GATE: next` (one action + stop); no free-text "if you want" endings.
 
 ## Before release
 
