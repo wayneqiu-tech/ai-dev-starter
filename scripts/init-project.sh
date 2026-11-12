@@ -144,6 +144,11 @@ copy_dir_if_absent "$SRC/pitfalls" "$TARGET/docs/standards/pitfalls"
 copy_dir_if_absent "$SRC/templates" "$TARGET/docs/standards/templates"
 copy_dir_if_absent "$SRC/presets" "$TARGET/docs/standards/presets"
 copy_dir_if_absent "$SRC/scripts" "$TARGET/docs/standards/scripts"
+# starter 自身专属的工具不进入下游项目：
+#   smoke-init.sh    测试生成器，下游用不上
+#   sync-standards.sh 升级器，它假定自己是 starter 根目录
+rm -f "$TARGET/docs/standards/scripts/smoke-init.sh" \
+      "$TARGET/docs/standards/scripts/sync-standards.sh"
 
 # --- project files ----------------------------------------------------------
 if [ "$LANG_CODE" = "zh" ]; then

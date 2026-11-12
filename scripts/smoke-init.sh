@@ -76,6 +76,11 @@ for f in AGENTS.md README.md STATUS.md VERSION standard.conf \
   if [ -e "$PROJ/$f" ]; then ok "生成物存在：$f"; else bad "生成物缺失：$f"; fi
 done
 
+# starter 自身专属工具不应出现在下游项目里
+for f in docs/standards/scripts/smoke-init.sh docs/standards/scripts/sync-standards.sh; do
+  if [ -e "$PROJ/$f" ]; then bad "不应出现在生成物里：$f"; else ok "已正确排除：$f"; fi
+done
+
 if [ "$FAIL" -gt 0 ]; then
   echo; echo "生成阶段已失败，后续跳过。"; exit 1
 fi
