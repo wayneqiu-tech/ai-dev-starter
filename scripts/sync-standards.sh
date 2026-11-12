@@ -108,13 +108,17 @@ echo "已写入：$TARGET/docs/standards/"
 # 那是**预期的**，不算同步失败；只有其它 FAIL 才回滚。
 echo
 echo "验证：跑一次 preflight"
-bash "$TARGET/docs/standards/scripts/preflight.sh" >"$WORK/pf.log" 2>&1 || true
+# 必须在目标项目里跑：preflight 以当前工作目录的仓库为检查对象
+( cd "$TARGET" && bash docs/standards/scripts/preflight.sh ) >"$WORK/pf.log" 2>&1 || true
 RESULT="$(grep -E '^Result: ' "$WORK/pf.log" | tail -1)"
 
 OTHER_FAILS="$(grep -E '^\[FAIL\]' "$WORK/pf.log" | grep -v 'worktree is dirty' || true)"
 if [ -z "$OTHER_FAILS" ]; then
-  echo "  ✓ ${RESULT:-（无 Result 行）}"
-  echo "  （同步导致的工作区变脏属预期，提交后即恢复干净）"
+  echo "  ✓ 未引入新的 FAIL：${RESULT:-（无 Result 行）}"
+  IGNORED=$(grep -E '^\[FAIL\]' "$WORK/pf.log" | grep -c 'worktree is dirty' || true)
+  if [ "${IGNORED:-0}" -gt 0 ]; then
+    echo "  （其中 $IGNORED 条为同步导致的 worktree dirty，已被忽略；提交后即恢复干净）"
+  fi
   echo
   echo "同步完成。下一步："
   echo "  cd \"$TARGET\" && git switch -c chore/sync-standards"
