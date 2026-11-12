@@ -27,6 +27,17 @@ for dep in git bash mktemp; do
   command -v "$dep" >/dev/null 2>&1 || { echo "缺少依赖：$dep" >&2; exit 2; }
 done
 
+# ---- 环境归一化（macOS 与 GitHub Actions 的差异点） ----------------------
+# CI runner 默认没有 git user.name/email，且 git init 默认分支是 master 而非 main。
+# 这里用环境变量兜住：不写用户全局配置，只影响本次进程与其子进程。
+export GIT_AUTHOR_NAME="${GIT_AUTHOR_NAME:-smoke-init}"
+export GIT_AUTHOR_EMAIL="${GIT_AUTHOR_EMAIL:-smoke-init@example.com}"
+export GIT_COMMITTER_NAME="${GIT_COMMITTER_NAME:-smoke-init}"
+export GIT_COMMITTER_EMAIL="${GIT_COMMITTER_EMAIL:-smoke-init@example.com}"
+export GIT_CONFIG_COUNT="${GIT_CONFIG_COUNT:-1}"
+export GIT_CONFIG_KEY_0="init.defaultBranch"
+export GIT_CONFIG_VALUE_0="main"
+
 WORK="$(mktemp -d "${TMPDIR:-/tmp}/smoke-init-XXXXXX")"
 cleanup() {
   if [ "$KEEP" = "1" ]; then
@@ -45,6 +56,8 @@ bad()  { FAIL=$((FAIL + 1)); echo "  [FAIL] $1"; }
 echo "smoke-init: 生成器冒烟测试"
 echo "starter:   $ROOT"
 echo "workspace: $WORK"
+echo "git:       $(git --version)"
+echo "default:   branch=${GIT_CONFIG_VALUE_0:-unset} author=${GIT_AUTHOR_EMAIL:-unset}"
 echo
 
 # ---- 1. 生成 ----------------------------------------------------------------
@@ -115,4 +128,9 @@ if [ "$FAIL" -eq 0 ]; then
   exit 0
 fi
 echo "冒烟测试失败：生成器有回归，先修模板再发版。"
+echo
+echo "---- init-project.sh 输出（末 15 行）----"
+tail -15 "$WORK/init.log" 2>/dev/null || echo "(无)"
+echo "---- preflight 输出（末 15 行）----"
+tail -15 "$WORK/preflight.log" 2>/dev/null || echo "(无)"
 exit 1
