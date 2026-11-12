@@ -14,9 +14,12 @@ jobs:
         with:
           fetch-depth: 0
       - name: Shell syntax
-        run: bash -n scripts/preflight.sh scripts/init-project.sh scripts/cleanup.sh templates/healthcheck.sh
+        run: bash -n scripts/preflight.sh scripts/init-project.sh scripts/cleanup.sh scripts/smoke-init.sh templates/healthcheck.sh
       - name: Preflight (CI mode)
         run: bash scripts/preflight.sh --ci
+      # 验证「生成器吐出来的项目真的能用」：生成 → preflight → commit-msg 钩子
+      - name: Smoke test generated project
+        run: bash scripts/smoke-init.sh
 
   example:
     name: Runnable example
